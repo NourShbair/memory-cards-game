@@ -8,7 +8,13 @@ let cardsArray = [];
 let imagesArray = ["🍉", "🍓", "🥝", "🍏", "🍇", "🍒", "🍑", "🫐", "🍐", "🍍"];
 
 //declare numberOfImages
-let numberOfImages = 4;
+let numberOfImages = 10;
+
+//declare boolean flag to check if this is the first or the second click on the same turn
+let isSecondClick = false;
+
+//declare card variable which is the opened card in the same turn
+let openedCard=null;
 
 //this function draw the cards on the screen depending on specific number as parameter, and use of css grid system to handle responsivness
 function drawCards(number) {
@@ -38,6 +44,7 @@ function drawCards(number) {
         //add classes to card div and implement them in css file
         card.classList.add("card", "p-3", "square", "flipped");
         card.addEventListener('click', flip);
+        card.addEventListener('click', onCardClick);
         column.appendChild(card);
         cardsArray.push(card);
     }
@@ -50,7 +57,6 @@ function flip(card) {
     cardDiv.classList.toggle("flipped");
 }
 
-
 //shuffle the images and distribute them on cards
 function distributeImages() {
 
@@ -61,23 +67,16 @@ function distributeImages() {
     }
     shuffle(indexArray);
 
-    //... is dereferencing for the array before concatination
-    let doubledImagesArray = [...imagesArray].concat(...imagesArray);
-    shuffle(doubledImagesArray);
-
     for (let i = 0; i < numberOfImages; i++) {
         let shuffledIndex1 = Number(indexArray[i]);
         let shuffledIndex2 = Number(indexArray[i + numberOfImages]);
-        console.log(shuffledIndex1);
-        console.log(shuffledIndex2);
-        console.log(cardsArray);
-        cardsArray[shuffledIndex1].textContent = doubledImagesArray[i];
-        cardsArray[shuffledIndex2].textContent = doubledImagesArray[i];
+        cardsArray[shuffledIndex1].textContent = imagesArray[i];
+        cardsArray[shuffledIndex2].textContent = imagesArray[i];
 
     }
 }
 
-
+//this function to shuffle any array items
 function shuffle(array) {
     let currentIndex = array.length;
 
@@ -92,6 +91,25 @@ function shuffle(array) {
         [array[currentIndex], array[randomIndex]] = [
             array[randomIndex], array[currentIndex]];
     }
+}
+
+function onCardClick(card){
+    let cardDiv = card.target;
+if(!isSecondClick){
+    isSecondClick=true;
+    openedCard = cardDiv;
+}else{
+    isSecondClick=false;
+    console.log(openedCard.textContent);
+    console.log(cardDiv.textContent);
+
+    if(openedCard.textContent === cardDiv.textContent){
+       console.log("Success Turn");
+    }else{
+        console.log("Failed Turn");
+    }
+}
+
 }
 
 drawCards(numberOfImages);
