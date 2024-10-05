@@ -1,0 +1,22 @@
+/* Setup font family */
+.pixelify-sans-gaming-font {
+    font-family: "Pixelify Sans", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 500;
+    font-style: normal;
+  }
+
+  
+body{
+    background-color: yellow;
+}
+
+.square{
+height: 40px;
+width: 40px;
+margin-top: 10px;
+}
+
+.uflipped{
+    background-color: black;
+}
