@@ -1,4 +1,4 @@
-/* Setup font family */
+/* setup font family */
 .pixelify-sans-gaming-font {
     font-family: "Pixelify Sans", sans-serif;
     font-optical-sizing: auto;
@@ -11,12 +11,18 @@ body{
     background-color: yellow;
 }
 
+/* cards dimensions */
 .square{
-height: 40px;
-width: 40px;
-margin-top: 10px;
+width: 10vw;
+height: 10vw;
 }
 
-.uflipped{
+/* display the background img to card if not flipped*/
+.unflipped{
     background-color: black;
+}
+
+/* display the background img to card if not flipped*/
+.flipped{
+    background-color: purple;
 }
