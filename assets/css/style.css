@@ -4,25 +4,34 @@
     font-optical-sizing: auto;
     font-weight: 500;
     font-style: normal;
-  }
+}
 
-  
-body{
+
+body {
     background-color: yellow;
 }
 
+
+/* cards properties */
+.card{
+font-size: 7vw;
+}
+
 /* cards dimensions */
-.square{
-width: 10vw;
-height: 10vw;
+.square {
+    width: 15vw;
+    height: 15vw;
 }
 
 /* display the background img to card if not flipped*/
-.unflipped{
+.unflipped {
     background-color: black;
+    font-size: 0px;
 }
 
 /* display the background img to card if not flipped*/
-.flipped{
+.flipped {
     background-color: purple;
+    font-size: 7vw;
 }
+
