@@ -46,6 +46,11 @@ let currentLevel=1;
 let nextBtn = document.getElementById('nextBtn');
 nextBtn.addEventListener('click', openNextLevel);
 
+//Get restart button
+let restartBtn = document.getElementById('refresh');
+restartBtn.addEventListener('click', restartLevel);
+
+
 //this function draw the cards on the screen depending on specific number as parameter, and use of css grid system to handle responsivness
 function drawCards(number) {
     let cardsContainer = document.createElement("div");
@@ -197,8 +202,6 @@ function checkLastRound() {
 }
 
 function openNextLevel(){
-    console.log("444444");
-    console.log(currentLevel);
     currentLevel++;
     let levelNumberLabel = document.getElementById('level-number');
     levelNumberLabel.textContent = "Level "+currentLevel;
@@ -214,6 +217,16 @@ function openNextLevel(){
     distributeImages();
 }
 
+function restartLevel(){
+    cardsArray = [];
+    openedCardsArray = [];
+    closedCardsArray = [];
+    isSecondClick = false;
+    openedCard = null;
+    gameBoard.textContent = "";
+    drawCards(numberOfImages);
+    distributeImages();
+}
 
 //choose cards theme by user
 function updateTheme(btn) {
