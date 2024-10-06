@@ -8,10 +8,11 @@ let cardsArray = [];
 let imagesArray = ["🍉", "🍓", "🥝", "🍏", "🍇", "🍒", "🍑", "🫐", "🍐", "🍍"];
 
 //declare the state of all cards
-let cardsStateArray = [];
+let openedCardsArray = [];
+let closedCardsArray = [];
 
 //declare numberOfImages
-let numberOfImages = 2;
+let numberOfImages = 4;
 
 //declare boolean flag to check if this is the first or the second click on the same round
 let isSecondClick = false;
@@ -53,6 +54,7 @@ function drawCards(number) {
         card.addEventListener('click', onCardClick);
         column.appendChild(card);
         cardsArray.push(card);
+        closedCardsArray.push(card);
     }
 }
 
@@ -123,23 +125,46 @@ function onCardClick(card) {
             openedCard.removeEventListener('click', onCardClick);
 
             //push both cards to stateArray to save game board status
-            cardsStateArray.push(openedCard);
-            cardsStateArray.push(cardDiv);
+            openedCardsArray.push(openedCard);
+            openedCardsArray.push(cardDiv);
 
         } else {
+            //prevent other cards from being clickable
+            for (let i = 0; i < closedCardsArray.length; i++) {
+                let card = closedCardsArray[i];
+                console.log(card);
+                card.removeEventListener('click', flip);
+                card.removeEventListener('click', onCardClick); 
+            }
             //if both clicked cards are different
-            cardDiv.classList.add("unflipped");
-            cardDiv.classList.remove("flipped");
-            openedCard.classList.add("unflipped");
-            openedCard.classList.remove("flipped");
+            cardDiv.classList.add("flipped");
+            cardDiv.classList.remove("unflipped");
+            //make delay to show the second card before unflip it 
+            function unflipCards() {
+                console.log("Function executed after 1.5 seconds");
+                cardDiv.classList.add("unflipped");
+                cardDiv.classList.remove("flipped");
+                openedCard.classList.add("unflipped");
+                openedCard.classList.remove("flipped");
+                for (let i = 0; i < closedCardsArray.length; i++) {
+                    let card = closedCardsArray[i];
+                    card.addEventListener('click', flip);
+                    card.addEventListener('click', onCardClick); 
+                }
+            }
+            setTimeout(unflipCards, 1500);
+
         }
     }
     checkLastRound();
 }
 
-function checkLastRound(){
-    console.log(cardsStateArray);
-    // myModal.show();
+function checkLastRound() {
+    console.log(openedCardsArray);
+    //check if all cards are flipped successfully
+    if (openedCardsArray.length == cardsArray.length) {
+        myModal.show();
+    }
 }
 
 drawCards(numberOfImages);
