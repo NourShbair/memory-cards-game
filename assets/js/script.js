@@ -7,14 +7,20 @@ let cardsArray = [];
 //declare imagesArray
 let imagesArray = ["🍉", "🍓", "🥝", "🍏", "🍇", "🍒", "🍑", "🫐", "🍐", "🍍"];
 
-//declare numberOfImages
-let numberOfImages = 10;
+//declare the state of all cards
+let cardsStateArray = [];
 
-//declare boolean flag to check if this is the first or the second click on the same turn
+//declare numberOfImages
+let numberOfImages = 2;
+
+//declare boolean flag to check if this is the first or the second click on the same round
 let isSecondClick = false;
 
-//declare card variable which is the opened card in the same turn
-let openedCard=null;
+//declare card variable which is the opened card in the same round
+let openedCard = null;
+
+// Get the success modal element 
+var myModal = new bootstrap.Modal(document.getElementById('successModal'));
 
 //this function draw the cards on the screen depending on specific number as parameter, and use of css grid system to handle responsivness
 function drawCards(number) {
@@ -42,7 +48,7 @@ function drawCards(number) {
         //add unique id to each card
         card.id = "card" + i
         //add classes to card div and implement them in css file
-        card.classList.add("card", "p-3", "square", "flipped");
+        card.classList.add("card", "p-3", "square", "unflipped");
         card.addEventListener('click', flip);
         card.addEventListener('click', onCardClick);
         column.appendChild(card);
@@ -67,6 +73,7 @@ function distributeImages() {
     }
     shuffle(indexArray);
 
+    //fill the cards array with images (each two cards have the same image)
     for (let i = 0; i < numberOfImages; i++) {
         let shuffledIndex1 = Number(indexArray[i]);
         let shuffledIndex2 = Number(indexArray[i + numberOfImages]);
@@ -93,23 +100,46 @@ function shuffle(array) {
     }
 }
 
-function onCardClick(card){
+function onCardClick(card) {
     let cardDiv = card.target;
-if(!isSecondClick){
-    isSecondClick=true;
-    openedCard = cardDiv;
-}else{
-    isSecondClick=false;
-    console.log(openedCard.textContent);
-    console.log(cardDiv.textContent);
+    if (!isSecondClick) {
+        //this is for the first click on the same round
+        isSecondClick = true;
+        openedCard = cardDiv;
+    } else {
+        //this is for the second click on the same round
+        isSecondClick = false;
 
-    if(openedCard.textContent === cardDiv.textContent){
-       console.log("Success Turn");
-    }else{
-        console.log("Failed Turn");
+        if (openedCard.textContent === cardDiv.textContent) {
+            //if both clicked cards are the same
+            cardDiv.classList.add("flipped");
+            cardDiv.classList.remove("unflipped");
+            cardDiv.removeEventListener('click', flip);
+            cardDiv.removeEventListener('click', onCardClick);
+
+            openedCard.classList.add("flipped");
+            openedCard.classList.remove("unflipped");
+            openedCard.removeEventListener('click', flip);
+            openedCard.removeEventListener('click', onCardClick);
+
+            //push both cards to stateArray to save game board status
+            cardsStateArray.push(openedCard);
+            cardsStateArray.push(cardDiv);
+
+        } else {
+            //if both clicked cards are different
+            cardDiv.classList.add("unflipped");
+            cardDiv.classList.remove("flipped");
+            openedCard.classList.add("unflipped");
+            openedCard.classList.remove("flipped");
+        }
     }
+    checkLastRound();
 }
 
+function checkLastRound(){
+    console.log(cardsStateArray);
+    // myModal.show();
 }
 
 drawCards(numberOfImages);

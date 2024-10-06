@@ -26,6 +26,8 @@ font-size: 7vw;
 /* display the background img to card if not flipped*/
 .unflipped {
     background-color: black;
+    background: url('/assets/favicon/apple-touch-icon.png') no-repeat center;
+
     font-size: 0px;
 }
 
@@ -35,3 +37,23 @@ font-size: 7vw;
     font-size: 7vw;
 }
 
+/* customize bootsrap modal with website theme and style */
+.modal-header{
+    background-color: purple;
+    color: white;
+}
+.modal-body{
+    background-color: yellow;
+    color:purple;
+}
+.modal-footer{
+    background-color: yellow;
+}
+.btn-primary{
+    background-color: purple;
+    color: white;
+}
+.btn-secondary{
+    background-color: white;
+    color: gray;
+}
