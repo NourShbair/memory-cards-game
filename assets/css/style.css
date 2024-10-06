@@ -1,59 +1,88 @@
 /* setup font family */
-.pixelify-sans-gaming-font {
-    font-family: "Pixelify Sans", sans-serif;
-    font-optical-sizing: auto;
-    font-weight: 500;
+.jersey-25-regular {
+    font-family: "Jersey 25", sans-serif;
+    font-weight: 400;
     font-style: normal;
 }
 
-
 body {
-    background-color: yellow;
+    background-color:white;
 }
 
+#controllers {
+    height: 10vh;
+    margin-top: 10vh;
+    margin-bottom: 5vh;
+    align-content: center;
+    background-color: #F1F7B5;
+    color: #FD8A8A;
+}
+
+#timer {
+    font-size: 1.8rem;
+    align-content: center;
+}
+
+#level-number {
+    font-size: 2.2rem;
+    align-content: center;
+}
+
+#user-controllers {
+    font-size: 1.8rem;
+    align-content: center;
+}
 
 /* cards properties */
-.card{
-font-size: 7vw;
+.card {
+    background-color: #A8D1D1;
+    font-size: 7vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 /* cards dimensions */
 .square {
-    width: 15vw;
-    height: 15vw;
+    aspect-ratio: 1 / 1;
 }
 
 /* display the background img to card if not flipped*/
 .unflipped {
-    background-color: black;
-    background: url('/assets/favicon/apple-touch-icon.png') no-repeat center;
-
+    /* background: url('/assets/favicon/apple-touch-icon.png') no-repeat center; */
+    background-color: #FD8A8A;
     font-size: 0px;
 }
 
 /* display the background img to card if not flipped*/
 .flipped {
-    background-color: purple;
     font-size: 7vw;
 }
 
 /* customize bootsrap modal with website theme and style */
-.modal-header{
-    background-color: purple;
+.modal-header {
+    background-color: #4b4e8f;
+    color: white;
+    justify-content: center;
+}
+
+.modal-body {
+    color: #003380;
+    text-align: center;
+}
+
+
+.modal-footer {
+    justify-content: center;
+}
+
+.btn-primary {
+    background-color: #becd19;
+    --bs-btn-hover-bg: #d4e330;
     color: white;
 }
-.modal-body{
-    background-color: yellow;
-    color:purple;
-}
-.modal-footer{
-    background-color: yellow;
-}
-.btn-primary{
-    background-color: purple;
-    color: white;
-}
-.btn-secondary{
+
+.btn-secondary {
     background-color: white;
     color: gray;
 }

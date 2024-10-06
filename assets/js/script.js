@@ -5,7 +5,12 @@ const gameBoard = document.querySelector("#game");
 let cardsArray = [];
 
 //declare imagesArray
-let imagesArray = ["🍉", "🍓", "🥝", "🍏", "🍇", "🍒", "🍑", "🫐", "🍐", "🍍"];
+let imagesArray = [];
+
+let fruitsArray = ["🍉", "🍓", "🥝", "🍏", "🍇", "🍒", "🍑", "🫐", "🍐", "🍍"];
+let animalsArray = ["🐥", "🐠", "🐕", "🐮", "🐭", "🐰", "🐿️", "🦩", "🦄", "🦜"];
+let flagsArray = ["🇵🇸", "🇪🇬", "🇯🇵", "🇶🇦", "🇸🇾", "🇸🇩", "🇮🇪", "🇬🇧", "🇹🇷", "🇹🇳"];
+let activitiesArray = ["⚽", "🥎", "🏀", "🎾", "⚾", "🎱", "🎮", "🎿", "🎲", "🪀"];
 
 //declare the state of all cards
 let openedCardsArray = [];
@@ -21,7 +26,20 @@ let isSecondClick = false;
 let openedCard = null;
 
 // Get the success modal element 
-var myModal = new bootstrap.Modal(document.getElementById('successModal'));
+var successModal = new bootstrap.Modal(document.getElementById('successModal'));
+
+// Get theme modal element 
+var themeModal = new bootstrap.Modal(document.getElementById('themeModal'));
+
+// Get themes options buttons
+let fruitsBtn = document.getElementById('fruitsBtn');
+fruitsBtn.addEventListener('click', updateTheme);
+let animalsBtn = document.getElementById('animalsBtn');
+animalsBtn.addEventListener('click', updateTheme);
+let flagsBtn = document.getElementById('flagsBtn');
+flagsBtn.addEventListener('click', updateTheme);
+let activitiesBtn = document.getElementById('activitiesBtn');
+activitiesBtn.addEventListener('click', updateTheme);
 
 //this function draw the cards on the screen depending on specific number as parameter, and use of css grid system to handle responsivness
 function drawCards(number) {
@@ -61,8 +79,12 @@ function drawCards(number) {
 //flip the card
 function flip(card) {
     let cardDiv = card.target;
-    cardDiv.classList.toggle("unflipped");
-    cardDiv.classList.toggle("flipped");
+    if (cardDiv === openedCard) {
+        //if click on the same card again
+    } else {
+        cardDiv.classList.toggle("unflipped");
+        cardDiv.classList.toggle("flipped");
+    }
 }
 
 //shuffle the images and distribute them on cards
@@ -108,10 +130,14 @@ function onCardClick(card) {
         //this is for the first click on the same round
         isSecondClick = true;
         openedCard = cardDiv;
+
+    } else if (cardDiv === openedCard) {
+        //if click on the same card again
+
     } else {
-        //this is for the second click on the same round
         isSecondClick = false;
 
+        //this is for the second click on the same round
         if (openedCard.textContent === cardDiv.textContent) {
             //if both clicked cards are the same
             cardDiv.classList.add("flipped");
@@ -130,18 +156,18 @@ function onCardClick(card) {
 
         } else {
             //prevent other cards from being clickable
+
             for (let i = 0; i < closedCardsArray.length; i++) {
                 let card = closedCardsArray[i];
-                console.log(card);
                 card.removeEventListener('click', flip);
-                card.removeEventListener('click', onCardClick); 
+                card.removeEventListener('click', onCardClick);
             }
             //if both clicked cards are different
             cardDiv.classList.add("flipped");
             cardDiv.classList.remove("unflipped");
             //make delay to show the second card before unflip it 
             function unflipCards() {
-                console.log("Function executed after 1.5 seconds");
+                //Function executed after 1.5 seconds
                 cardDiv.classList.add("unflipped");
                 cardDiv.classList.remove("flipped");
                 openedCard.classList.add("unflipped");
@@ -149,7 +175,7 @@ function onCardClick(card) {
                 for (let i = 0; i < closedCardsArray.length; i++) {
                     let card = closedCardsArray[i];
                     card.addEventListener('click', flip);
-                    card.addEventListener('click', onCardClick); 
+                    card.addEventListener('click', onCardClick);
                 }
             }
             setTimeout(unflipCards, 1500);
@@ -160,12 +186,29 @@ function onCardClick(card) {
 }
 
 function checkLastRound() {
-    console.log(openedCardsArray);
     //check if all cards are flipped successfully
     if (openedCardsArray.length == cardsArray.length) {
-        myModal.show();
+        successModal.show();
     }
 }
 
+
+
+//choose cards theme by user
+function updateTheme(btn) {
+    let btnID = btn.target.id;
+    if (btnID == "activitiesBtn") {
+        imagesArray = activitiesArray;
+    } else if (btnID == "flagsBtn") {
+        imagesArray = flagsArray;
+    } else if (btnID == "animalsBtn") {
+        imagesArray = animalsArray;
+    } else if (btnID == "fruitsBtn") {
+        imagesArray = fruitsArray;
+    }
+    themeModal.hide();
+    distributeImages();
+}
+
 drawCards(numberOfImages);
-distributeImages();
+themeModal.show();
