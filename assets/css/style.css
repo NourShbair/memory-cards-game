@@ -6,49 +6,52 @@
 }
 
 body {
-    background-color:#490f8b;
+    background-color:#49108B;
 }
 
 #controllers {
     height: 10vh;
-    margin-top: 10vh;
-    margin-bottom: 5vh;
+    margin-top: 5vh;
+    margin-bottom: 3vh;
     align-content: center;
-    background-color: #7E30E1;
+    background-color: #7e30e1;
     color: #F3F8FF;
+    border-color: #F3F8FF;
+    border-width: 3px;
+    border-style: dashed;
     border-radius: 5px;
-    /* margin-left: 10px;
-    margin-right: 10px; */
+    width: 95vw;
 }
 
 #timer {
-    font-size: 1.8rem;
+    font-size: 1rem;
     align-content: center;
 }
 
 #level-number {
-    font-size: 2.2rem;
+    font-size: 1.5rem;
     align-content: center;
 }
 
 #user-controllers {
-    font-size: 1.8rem;
+    font-size: 1rem;
     align-content: center;
+}
+
+.controlBtn {
+    cursor: pointer;
 }
 
 /* cards properties */
 .card {
-    background-color: #eab1ec;
+    background-color: #F3F8FF;
+    border-color: #F3F8FF;
     font-size: 7vw;
     display: flex;
     justify-content: center;
     align-items: center;
     cursor: pointer;
-}
-
-/* cards dimensions */
-.square {
-    aspect-ratio: 1 / 1;
+    border-width: 2px;
 }
 
 /* display the background img to card if not flipped*/
@@ -60,19 +63,30 @@ body {
 
 /* display the background img to card if not flipped*/
 .flipped {
-    background-color: #eab1ec;
+    /* background-color: #7E30E1; */
     font-size: 7vw;
 }
 
+/* cards dimensions */
+.square {
+    aspect-ratio: 1 / 1;
+}
+
+
 /* customize bootsrap modal with website theme and style */
+.modal-content{
+    border-color: #ffeb86;
+    border-width: 5px;
+    border-style: double;
+}
 .modal-header {
-    background-color: #49108B;
-    color: white;
+    background-color: #ffeb86;
+    color: #49108B;
     justify-content: center;
 }
 
 .modal-body {
-    color: #003380;
+    color: #49108B;
     text-align: center;
 }
 
@@ -91,3 +105,73 @@ body {
     background-color: white;
     color: #1F4172;
 }
+
+
+/* Media query: large or landscape phones (576px and up) */
+@media screen and (min-width: 576px) {
+
+}
+
+/* Media query: tablets and larger (768px and up) */
+@media screen and (min-width: 768px) {
+    #controllers {
+        height: 10vh;
+        margin-top: 7vh;
+        margin-bottom: 3vh;
+    }
+    
+    #timer {
+        font-size: 1.4rem;
+    }
+    
+    #level-number {
+        font-size: 2rem;
+    }
+    
+    #user-controllers {
+        font-size: 1.4rem;
+    }
+}
+
+/* Large devices (laptops and desktops, 992px and up) */
+@media screen and (min-width: 992px) {
+    #controllers {
+        height: 10vh;
+        margin-top: 10vh;
+        margin-bottom: 5vh;
+    }
+    
+    #timer {
+        font-size: 1.8rem;
+    }
+    
+    #level-number {
+        font-size: 2.2rem;
+    }
+    
+    #user-controllers {
+        font-size: 1.8rem;
+    }
+}
+
+/* XLarge devices ( screens, 1200px and up) */
+@media screen and (min-width: 1200px) {
+    #controllers {
+        height: 10vh;
+        margin-top: 10vh;
+        margin-bottom: 5vh;
+    }
+    
+    #timer {
+        font-size: 1.8rem;
+    }
+    
+    #level-number {
+        font-size: 2.2rem;
+    }
+    
+    #user-controllers {
+        font-size: 1.8rem;
+    }
+}
+

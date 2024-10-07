@@ -42,9 +42,10 @@ let activitiesBtn = document.getElementById('activitiesBtn');
 activitiesBtn.addEventListener('click', updateTheme);
 
 let changeThemeBtn = document.getElementById('themeBtn');
-changeThemeBtn.addEventListener('click',showThemeModal);
+changeThemeBtn.addEventListener('click', showThemeModal);
 
-let currentLevel=1;
+let currentLevel = 1;
+let isTimerLunched = false;
 //Get next level button
 let nextBtn = document.getElementById('nextBtn');
 nextBtn.addEventListener('click', openNextLevel);
@@ -137,6 +138,10 @@ function shuffle(array) {
 }
 
 function onCardClick(card) {
+    if(!isTimerLunched){
+        launchTimer();
+        isTimerLunched=true;
+    }
     let cardDiv = card.target;
     if (!isSecondClick) {
         //this is for the first click on the same round
@@ -190,26 +195,28 @@ function onCardClick(card) {
                     card.addEventListener('click', onCardClick);
                 }
             }
-            setTimeout(unflipCards, 1500);
+            setTimeout(unflipCards, 1000);
 
         }
     }
     checkLastRound();
+    
 }
 
 function checkLastRound() {
     //check if all cards are flipped successfully
     if (openedCardsArray.length == cardsArray.length) {
         successModal.show();
+        stopTimer();
     }
 }
 
-function openNextLevel(){
+function openNextLevel() {
     currentLevel++;
     let levelNumberLabel = document.getElementById('level-number');
-    levelNumberLabel.textContent = "Level "+currentLevel;
+    levelNumberLabel.textContent = "Level " + currentLevel;
     successModal.hide();
-    numberOfImages = numberOfImages+1;
+    numberOfImages = numberOfImages + 1;
     cardsArray = [];
     openedCardsArray = [];
     closedCardsArray = [];
@@ -218,9 +225,10 @@ function openNextLevel(){
     gameBoard.textContent = "";
     drawCards(numberOfImages);
     distributeImages();
+    resetTimer();
 }
 
-function restartLevel(){
+function restartLevel() {
     cardsArray = [];
     openedCardsArray = [];
     closedCardsArray = [];
@@ -229,23 +237,28 @@ function restartLevel(){
     gameBoard.textContent = "";
     drawCards(numberOfImages);
     distributeImages();
+    resetTimer();
 }
 
-function showThemeModal(){
+function showThemeModal() {
     restartLevel();
     themeModal.show();
 }
 
 //choose cards theme by user
 function updateTheme(btn) {
-    let btnID = btn.target.id;
+
+    let btnID="";
+    if(btn){
+        btnID = btn.target.id;
+    }
     if (btnID == "activitiesBtn") {
         imagesArray = activitiesArray;
     } else if (btnID == "flagsBtn") {
         imagesArray = flagsArray;
     } else if (btnID == "animalsBtn") {
         imagesArray = animalsArray;
-    } else if (btnID == "fruitsBtn") {
+    } else {
         imagesArray = fruitsArray;
     }
     themeModal.hide();
@@ -254,3 +267,50 @@ function updateTheme(btn) {
 
 drawCards(numberOfImages);
 themeModal.show();
+updateTheme();
+
+
+
+
+var seconds = 00;
+var minutes = 00;
+var appendMinutes = document.getElementById("minutes")
+var appendSeconds = document.getElementById("seconds")
+var Interval;
+
+function launchTimer() {
+    clearInterval(Interval);
+    Interval = setInterval(startTimer, 1000);
+}
+
+function startTimer() {
+    seconds++;
+    if (seconds <= 9) {
+        appendSeconds.innerHTML = "0" + seconds;
+    }
+    if (seconds > 9) {
+        appendSeconds.innerHTML = seconds;
+    }
+    if (seconds > 59) {
+        minutes++;
+        appendMinutes.innerHTML = "0" + minutes;
+        seconds = 0;
+        appendSeconds.innerHTML = "0" + 0;
+    }
+    if (minutes > 9) {
+        appendMinutes.innerHTML = minutes;
+    }
+}
+
+function stopTimer() {
+    clearInterval(Interval);
+}
+
+function resetTimer() {
+    isTimerLunched = false;
+    clearInterval(Interval);
+    minutes = "00";
+    seconds = "00";
+    appendMinutes.innerHTML = minutes;
+    appendSeconds.innerHTML = seconds;
+}
