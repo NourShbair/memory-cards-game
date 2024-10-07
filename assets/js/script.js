@@ -41,13 +41,16 @@ flagsBtn.addEventListener('click', updateTheme);
 let activitiesBtn = document.getElementById('activitiesBtn');
 activitiesBtn.addEventListener('click', updateTheme);
 
+let changeThemeBtn = document.getElementById('themeBtn');
+changeThemeBtn.addEventListener('click',showThemeModal);
+
 let currentLevel=1;
 //Get next level button
 let nextBtn = document.getElementById('nextBtn');
 nextBtn.addEventListener('click', openNextLevel);
 
 //Get restart button
-let restartBtn = document.getElementById('refresh');
+let restartBtn = document.getElementById('refreshBtn');
 restartBtn.addEventListener('click', restartLevel);
 
 
@@ -226,6 +229,11 @@ function restartLevel(){
     gameBoard.textContent = "";
     drawCards(numberOfImages);
     distributeImages();
+}
+
+function showThemeModal(){
+    restartLevel();
+    themeModal.show();
 }
 
 //choose cards theme by user

@@ -6,7 +6,7 @@
 }
 
 body {
-    background-color:white;
+    background-color:#490f8b;
 }
 
 #controllers {
@@ -14,8 +14,11 @@ body {
     margin-top: 10vh;
     margin-bottom: 5vh;
     align-content: center;
-    background-color: #F1F7B5;
-    color: #FD8A8A;
+    background-color: #7E30E1;
+    color: #F3F8FF;
+    border-radius: 5px;
+    /* margin-left: 10px;
+    margin-right: 10px; */
 }
 
 #timer {
@@ -35,11 +38,12 @@ body {
 
 /* cards properties */
 .card {
-    background-color: #A8D1D1;
+    background-color: #eab1ec;
     font-size: 7vw;
     display: flex;
     justify-content: center;
     align-items: center;
+    cursor: pointer;
 }
 
 /* cards dimensions */
@@ -50,18 +54,19 @@ body {
 /* display the background img to card if not flipped*/
 .unflipped {
     /* background: url('/assets/favicon/apple-touch-icon.png') no-repeat center; */
-    background-color: #FD8A8A;
+    background-color: #E26EE5;
     font-size: 0px;
 }
 
 /* display the background img to card if not flipped*/
 .flipped {
+    background-color: #eab1ec;
     font-size: 7vw;
 }
 
 /* customize bootsrap modal with website theme and style */
 .modal-header {
-    background-color: #4b4e8f;
+    background-color: #49108B;
     color: white;
     justify-content: center;
 }
@@ -77,12 +82,12 @@ body {
 }
 
 .btn-primary {
-    background-color: #becd19;
-    --bs-btn-hover-bg: #d4e330;
-    color: white;
+    background-color: #E26EE5;
+    --bs-btn-hover-bg: #f999fc;
+    color: #F3F8FF;
 }
 
 .btn-secondary {
     background-color: white;
-    color: gray;
+    color: #1F4172;
 }
