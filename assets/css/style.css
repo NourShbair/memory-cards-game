@@ -52,6 +52,7 @@ body {
     align-items: center;
     cursor: pointer;
     border-width: 2px;
+    transition: transform 0.5s;
 }
 
 /* display the background img to card if not flipped*/
@@ -63,15 +64,14 @@ body {
 
 /* display the background img to card if not flipped*/
 .flipped {
-    /* background-color: #7E30E1; */
     font-size: 7vw;
+    transform: rotateY(180deg);
 }
 
 /* cards dimensions */
 .square {
     aspect-ratio: 1 / 1;
 }
-
 
 /* customize bootsrap modal with website theme and style */
 .modal-content{
