@@ -31,12 +31,6 @@
 </head>
 
 <body>
-    <div id="header">
-        <!-- <h1 class="pixelify-sans-gaming-font">
-            Testing the font style
-        </h1> -->
-    </div>
-
     <div id="controllers" class="container text-center">
         <div class="row text-center">
             <div id="timer" class="col-2 jersey-25-regular">
@@ -46,12 +40,12 @@
             </div>
             <div id="level-number" class="col-6 jersey-25-regular">Level 1</div>
             <div id="user-controllers" class="col-4 row text-center">
-                <div id="themeBtn" class="controlBtn col-4"><i class="fa-regular fa-images"></i></div>
-                <div id="soundBtn" class="controlBtn col-4">
+                <div id="theme-btn" class="control-btn col-4"><i class="fa-regular fa-images"></i></div>
+                <div id="sound-btn" class="control-btn col-4">
                     <div id="volume-on"><i class="fa-solid fa-volume-high"></i></div>
                     <!-- <div id="volume-off"><i class="fa-solid fa-volume-xmark"></i></div> -->
                 </div>
-                <div id="refreshBtn" class="controlBtn col-4 jersey-25-regular">Restart</div>
+                <div id="refresh-btn" class="controlBtn col-4 jersey-25-regular">Restart</div>
             </div>
 
         </div>
@@ -66,7 +60,7 @@
 
     <!-- Bootstrap Modals -->
     <!-- Success modal(show when successfully finish the level) -->
-    <div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="success-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
@@ -77,27 +71,25 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                    <button type="button" class="btn btn-primary" id="nextBtn">Next</button>
+                    <button type="button" class="btn btn-primary" id="next-btn">Next</button>
                 </div>
             </div>
         </div>
     </div>
 
     <!-- Theme modal(let the user choose the theme of cards) -->
-    <div class="modal fade" id="themeModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="theme-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
                     <h1 class="modal-title fs-5" id="exampleModalLabel">Let's Choose Cards Theme! 🎨</h1>
                 </div>
                 <div class="modal-body">
-                    <button id="fruitsBtn" class="btn btn-secondary">🍉</button>
+                    <button id="fruits-btn" class="btn btn-secondary theme-modal-btn">🍉</button>
+                    <button id="animals-btn" class="btn btn-secondary theme-modal-btn">🦄</button>
+                    <button id="smiley-btn" class="btn btn-secondary theme-modal-btn">🤓</button>
+                    <button id="activities-btn" class="btn btn-secondary theme-modal-btn">⚽</button>
 
-                    <button id="animalsBtn" class="btn btn-secondary">🐥</button>
-
-                    <button id="flagsBtn" class="btn btn-secondary">🇵🇸</button>
-
-                    <button id="activitiesBtn" class="btn btn-secondary">⚽</button>
                 </div>
             </div>
         </div>

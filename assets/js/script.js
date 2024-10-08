@@ -11,8 +11,8 @@ let cardsArray = [];
 let imagesArray = [];
 
 let fruitsArray = ["🍉", "🍓", "🥝", "🍏", "🍇", "🍒", "🍑", "🫐", "🍐", "🍍", "🥥"];
-let animalsArray = ["🐥", "🐠", "🐕", "🐮", "🐭", "🐰", "🐿️", "🦩", "🦄", "🦜", "🦋"];
-let flagsArray = ["🇵🇸", "🇪🇬", "🇯🇵", "🇶🇦", "🇸🇾", "🇸🇩", "🇮🇪", "🇬🇧", "🇹🇷", "🇹🇳", "🇱🇧"];
+let animalsArray = ["🦄", "🐠", "🐕", "🐮", "🐭", "🐰", "🐿️", "🦩", "🐥", "🦜", "🦋"];
+let smileysArray = ["🤓", "🥰", "🤩", "😂", "😎", "😜", "😍", "🤑", "😄", "😋", "😉"];
 let activitiesArray = ["⚽", "🥎", "🏀", "🎾", "⚾", "🎱", "🎮", "🎿", "🎲", "🪀", "⛳"];
 
 //declare the state of all cards
@@ -29,32 +29,32 @@ let isSecondClick = false;
 let openedCard = null;
 
 // Get the success modal element 
-var successModal = new bootstrap.Modal(document.getElementById('successModal'));
+var successModal = new bootstrap.Modal(document.getElementById('success-modal'));
 
 // Get theme modal element 
-var themeModal = new bootstrap.Modal(document.getElementById('themeModal'));
+var themeModal = new bootstrap.Modal(document.getElementById('theme-modal'));
 
 // Get themes options buttons
-let fruitsBtn = document.getElementById('fruitsBtn');
+let fruitsBtn = document.getElementById('fruits-btn');
 fruitsBtn.addEventListener('click', updateTheme);
-let animalsBtn = document.getElementById('animalsBtn');
+let animalsBtn = document.getElementById('animals-btn');
 animalsBtn.addEventListener('click', updateTheme);
-let flagsBtn = document.getElementById('flagsBtn');
-flagsBtn.addEventListener('click', updateTheme);
-let activitiesBtn = document.getElementById('activitiesBtn');
+let smileyBtn = document.getElementById('smiley-btn');
+smileyBtn.addEventListener('click', updateTheme);
+let activitiesBtn = document.getElementById('activities-btn');
 activitiesBtn.addEventListener('click', updateTheme);
 
-let changeThemeBtn = document.getElementById('themeBtn');
+let changeThemeBtn = document.getElementById('theme-btn');
 changeThemeBtn.addEventListener('click', showThemeModal);
 
 let currentLevel = numberOfImages-1;
 let isTimerLunched = false;
 //Get next level button
-let nextBtn = document.getElementById('nextBtn');
+let nextBtn = document.getElementById('next-btn');
 nextBtn.addEventListener('click', openNextLevel);
 
 //Get restart button
-let restartBtn = document.getElementById('refreshBtn');
+let restartBtn = document.getElementById('refresh-btn');
 restartBtn.addEventListener('click', restartLevel);
 
 
@@ -182,7 +182,6 @@ function onCardClick(card) {
 
         } else {
             //prevent other cards from being clickable
-
             for (let i = 0; i < closedCardsArray.length; i++) {
                 let card = closedCardsArray[i];
                 card.removeEventListener('click', flip);
@@ -205,11 +204,9 @@ function onCardClick(card) {
                 }
             }
             setTimeout(unflipCards, 1000);
-
         }
     }
     checkLastRound();
-
 }
 
 function checkLastRound() {
@@ -227,8 +224,6 @@ function openNextLevel() {
     }
     else {
         currentLevel++;
-        // let levelNumberLabel = document.getElementById('level-number');
-        // levelNumberLabel.textContent = "Level " + currentLevel;
         successModal.hide();
         numberOfImages = numberOfImages + 1;
         cardsArray = [];
@@ -267,13 +262,14 @@ function updateTheme(btn) {
     if (btn) {
         btnID = btn.target.id;
     }
-    if (btnID == "activitiesBtn") {
+    if (btnID == "activities-btn") {
         imagesArray = activitiesArray;
-    } else if (btnID == "flagsBtn") {
-        imagesArray = flagsArray;
-    } else if (btnID == "animalsBtn") {
+    } else if (btnID == "smiley-btn") {
+        imagesArray = smileysArray;
+    } else if (btnID == "animals-btn") {
         imagesArray = animalsArray;
     } else {
+        //default case
         imagesArray = fruitsArray;
     }
     themeModal.hide();
