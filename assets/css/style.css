@@ -106,7 +106,7 @@ body {
 }
 
 .modal-header {
-    background-color: #e26ee5;
+    background-color: #93BB50;
     color: #F3F8FF;
     justify-content: center;
 }
@@ -121,6 +121,8 @@ body {
 
 .modal-footer {
     justify-content: center;
+    background-color: #F9F8ED;
+
 }
 
 .btn-primary {
