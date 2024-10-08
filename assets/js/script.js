@@ -1,16 +1,19 @@
 //access the game div
 const gameBoard = document.querySelector("#game");
 
+//declare current images list on cards
+let currentImages = [];
+
 //declare cardsArray
 let cardsArray = [];
 
 //declare imagesArray
 let imagesArray = [];
 
-let fruitsArray = ["🍉", "🍓", "🥝", "🍏", "🍇", "🍒", "🍑", "🫐", "🍐", "🍍"];
-let animalsArray = ["🐥", "🐠", "🐕", "🐮", "🐭", "🐰", "🐿️", "🦩", "🦄", "🦜"];
-let flagsArray = ["🇵🇸", "🇪🇬", "🇯🇵", "🇶🇦", "🇸🇾", "🇸🇩", "🇮🇪", "🇬🇧", "🇹🇷", "🇹🇳"];
-let activitiesArray = ["⚽", "🥎", "🏀", "🎾", "⚾", "🎱", "🎮", "🎿", "🎲", "🪀"];
+let fruitsArray = ["🍉", "🍓", "🥝", "🍏", "🍇", "🍒", "🍑", "🫐", "🍐", "🍍", "🥥"];
+let animalsArray = ["🐥", "🐠", "🐕", "🐮", "🐭", "🐰", "🐿️", "🦩", "🦄", "🦜", "🦋"];
+let flagsArray = ["🇵🇸", "🇪🇬", "🇯🇵", "🇶🇦", "🇸🇾", "🇸🇩", "🇮🇪", "🇬🇧", "🇹🇷", "🇹🇳", "🇱🇧"];
+let activitiesArray = ["⚽", "🥎", "🏀", "🎾", "⚾", "🎱", "🎮", "🎿", "🎲", "🪀", "⛳"];
 
 //declare the state of all cards
 let openedCardsArray = [];
@@ -44,7 +47,7 @@ activitiesBtn.addEventListener('click', updateTheme);
 let changeThemeBtn = document.getElementById('themeBtn');
 changeThemeBtn.addEventListener('click', showThemeModal);
 
-let currentLevel = 1;
+let currentLevel = numberOfImages-1;
 let isTimerLunched = false;
 //Get next level button
 let nextBtn = document.getElementById('nextBtn');
@@ -86,7 +89,11 @@ function drawCards(number) {
         column.appendChild(card);
         cardsArray.push(card);
         closedCardsArray.push(card);
+        currentImages.push("");
     }
+
+    let levelNumberLabel = document.getElementById('level-number');
+    levelNumberLabel.textContent = "Level " + currentLevel;
 }
 
 //flip the card
@@ -116,8 +123,10 @@ function distributeImages() {
         let shuffledIndex2 = Number(indexArray[i + numberOfImages]);
         cardsArray[shuffledIndex1].textContent = imagesArray[i];
         cardsArray[shuffledIndex2].textContent = imagesArray[i];
-
+        currentImages[shuffledIndex1] = imagesArray[i];
+        currentImages[shuffledIndex2] = imagesArray[i];
     }
+    console.log(currentImages);
 }
 
 //this function to shuffle any array items
@@ -138,9 +147,9 @@ function shuffle(array) {
 }
 
 function onCardClick(card) {
-    if(!isTimerLunched){
+    if (!isTimerLunched) {
         launchTimer();
-        isTimerLunched=true;
+        isTimerLunched = true;
     }
     let cardDiv = card.target;
     if (!isSecondClick) {
@@ -200,7 +209,7 @@ function onCardClick(card) {
         }
     }
     checkLastRound();
-    
+
 }
 
 function checkLastRound() {
@@ -212,20 +221,26 @@ function checkLastRound() {
 }
 
 function openNextLevel() {
-    currentLevel++;
-    let levelNumberLabel = document.getElementById('level-number');
-    levelNumberLabel.textContent = "Level " + currentLevel;
-    successModal.hide();
-    numberOfImages = numberOfImages + 1;
-    cardsArray = [];
-    openedCardsArray = [];
-    closedCardsArray = [];
-    isSecondClick = false;
-    openedCard = null;
-    gameBoard.textContent = "";
-    drawCards(numberOfImages);
-    distributeImages();
-    resetTimer();
+    if (currentLevel == 10) {
+        //check if it's the last level
+        
+    }
+    else {
+        currentLevel++;
+        // let levelNumberLabel = document.getElementById('level-number');
+        // levelNumberLabel.textContent = "Level " + currentLevel;
+        successModal.hide();
+        numberOfImages = numberOfImages + 1;
+        cardsArray = [];
+        openedCardsArray = [];
+        closedCardsArray = [];
+        isSecondClick = false;
+        openedCard = null;
+        gameBoard.textContent = "";
+        drawCards(numberOfImages);
+        distributeImages();
+        resetTimer();
+    }
 }
 
 function restartLevel() {
@@ -248,8 +263,8 @@ function showThemeModal() {
 //choose cards theme by user
 function updateTheme(btn) {
 
-    let btnID="";
-    if(btn){
+    let btnID = "";
+    if (btn) {
         btnID = btn.target.id;
     }
     if (btnID == "activitiesBtn") {
