@@ -12,7 +12,7 @@ body {
 #controllers {
     height: 10vh;
     margin-top: 5vh;
-    /* margin-bottom: 3vh; */
+    margin-bottom: 2vh;
     align-content: center;
     background-color: #93BB50;
     color: #F3F8FF;
@@ -42,6 +42,24 @@ body {
     cursor: pointer;
 }
 
+#levels-timeline{
+    align-content: center;
+}
+
+.level-button{
+    color: #F3F8FF;
+    border-width: 1px;
+    border-color: #F3F8FF;
+    border-style: solid;
+    align-content: center;
+    border-radius: 50%;
+    height: 100%;
+    cursor: pointer;
+}
+
+#game{
+    margin-top: 0px;
+}
 /* cards properties */
 .card {
     background-color: #F3F8FF;
@@ -126,7 +144,7 @@ body {
     #controllers {
         height: 10vh;
         margin-top: 7vh;
-        margin-bottom: 3vh;
+        /* margin-bottom: 2vh; */
     }
 
     #timer {
@@ -150,8 +168,8 @@ body {
 @media screen and (min-width: 992px) {
     #controllers {
         height: 10vh;
-        margin-top: 10vh;
-        margin-bottom: 5vh;
+        margin-top: 6vh;
+        /* margin-bottom: 2vh; */
     }
 
     #timer {
@@ -175,8 +193,8 @@ body {
 @media screen and (min-width: 1200px) {
     #controllers {
         height: 10vh;
-        margin-top: 10vh;
-        margin-bottom: 5vh;
+        margin-top: 5vh;
+        /* margin-bottom: 2vh; */
     }
 
     #timer {

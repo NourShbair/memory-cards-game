@@ -57,29 +57,23 @@ nextBtn.addEventListener('click', openNextLevel);
 let restartBtn = document.getElementById('refresh-btn');
 restartBtn.addEventListener('click', restartLevel);
 
-
 //this function draw the cards on the screen depending on specific number as parameter, and use of css grid system to handle responsivness
 function drawCards(number) {
     let cardsContainer = document.createElement("div");
     //add bootstrap classes to the container div
     cardsContainer.classList.add("container","text-center");
     gameBoard.appendChild(cardsContainer);
-
-    const cardsCount = 2 * number;
-
+    const cardsCount = 2*number;
     let row = document.createElement("div");
     //add bootstrap classes to row div
     row.classList.add("row", "row-cols-4");
     cardsContainer.appendChild(row);
-
-
+ 
     for (let i = 0; i < cardsCount; i++) {
-
         let column = document.createElement("div");
         //add bootstrap class to column div
         column.classList.add("col", "g-4");
         row.appendChild(column);
-
         let card = document.createElement("div");
         //add unique id to each card
         card.id = "card" + i
@@ -92,11 +86,49 @@ function drawCards(number) {
         closedCardsArray.push(card);
         currentImages.push("");
     }
-
     let levelNumberLabel = document.getElementById('level-number');
     levelNumberLabel.textContent = "Level " + currentLevel;
 }
 
+//this function draw timeline for levels to allow user navigate between solved levels, using of css grid system to handle responsivness
+function drawLevelsTimeline(){
+    const levelsTimeLine = document.querySelector("#levels-timeline");
+    let cardsContainer = document.createElement("div");
+    //add bootstrap classes to the container div
+    cardsContainer.classList.add("container","text-center");
+    levelsTimeLine.appendChild(cardsContainer);
+    let row = document.createElement("div");
+    //add bootstrap classes to row div
+    row.classList.add("row", "row-cols-10");
+    cardsContainer.appendChild(row);
+    //draw 10 button (levels) on timeline
+    for (let i = 0; i < 10; i++) {
+
+        let column = document.createElement("div");
+        //add bootstrap class to column div
+        column.classList.add("col");
+        row.appendChild(column);
+
+        let levelButton = document.createElement("div");
+        //add unique id to each button
+        let levelBtnID = "level-"+(i+1)+"-button";
+        levelButton.id = levelBtnID;
+        //add classes to card div and implement them in css file
+        levelButton.classList.add("level-button", "square");
+        levelButton.addEventListener('click', onLevelClick);
+        column.appendChild(levelButton);
+
+
+        document.getElementById(levelBtnID).textContent = i+1;
+    }
+}
+//open level when clicked from timeline
+function onLevelClick(btn){
+    let levelButton = btn.target;
+    let clickedLevel = levelButton.textContent;
+    openLevel(clickedLevel);
+
+}
 //flip the card
 function flip(card) {
     let cardDiv = card.target;
@@ -117,9 +149,9 @@ function distributeImages() {
         indexArray.push(i);
     }
     shuffle(indexArray);
-
     //fill the cards array with images (each two cards have the same image)
     for (let i = 0; i < numberOfImages; i++) {
+
         let shuffledIndex1 = Number(indexArray[i]);
         let shuffledIndex2 = Number(indexArray[i + numberOfImages]);
         cardsArray[shuffledIndex1].textContent = imagesArray[i];
@@ -220,7 +252,6 @@ function checkLastRound() {
 function openNextLevel() {
     if (currentLevel == 10) {
         //check if it's the last level
-        
     }
     else {
         currentLevel++;
@@ -250,6 +281,22 @@ function restartLevel() {
     resetTimer();
 }
 
+function openLevel(number) {
+        currentLevel = number;
+        numberOfImages = Number(currentLevel)+1;
+        cardsArray = [];
+        openedCardsArray = [];
+        closedCardsArray = [];
+        isSecondClick = false;
+        openedCard = null;
+        gameBoard.textContent = "";
+        console.log(currentLevel);
+        drawCards(numberOfImages);
+        distributeImages();
+        resetTimer();
+
+}
+
 function showThemeModal() {
     restartLevel();
     themeModal.show();
@@ -277,6 +324,7 @@ function updateTheme(btn) {
 }
 
 drawCards(numberOfImages);
+drawLevelsTimeline();
 themeModal.show();
 updateTheme();
 
