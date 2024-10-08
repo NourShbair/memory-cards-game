@@ -47,6 +47,7 @@ body {
 }
 
 .level-button{
+    background-color: #e26ee5;
     color: #F3F8FF;
     border-width: 1px;
     border-color: #F3F8FF;
@@ -57,12 +58,16 @@ body {
     cursor: pointer;
 }
 
+/* the default case for sound is OFF */
+#sound-on{
+    display: none;
+}
 #game{
     margin-top: 0px;
 }
 /* cards properties */
 .card {
-    background-color: #F3F8FF;
+    background-color: #F9F8ED;
     border-color: #F3F8FF;
     display: flex;
     justify-content: center;
@@ -109,6 +114,8 @@ body {
 .modal-body {
     color: #6D108B;
     text-align: center;
+    background-color: #F9F8ED;
+
 }
 
 

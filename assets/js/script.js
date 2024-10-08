@@ -47,7 +47,7 @@ activitiesBtn.addEventListener('click', updateTheme);
 let changeThemeBtn = document.getElementById('theme-btn');
 changeThemeBtn.addEventListener('click', showThemeModal);
 
-let currentLevel = numberOfImages-1;
+let currentLevel = numberOfImages - 1;
 let isTimerLunched = false;
 //Get next level button
 let nextBtn = document.getElementById('next-btn');
@@ -57,18 +57,28 @@ nextBtn.addEventListener('click', openNextLevel);
 let restartBtn = document.getElementById('refresh-btn');
 restartBtn.addEventListener('click', restartLevel);
 
+//Get sound button
+let soundBtn = document.getElementById('sound-btn');
+soundBtn.addEventListener('click', onSoundClick);
+
+//access audio files
+let flipSound = new Audio('flip-card-sound.mp3');
+let winningSound = new Audio('winning-sound.mp3');
+
+let isSoundOn = false;
+
 //this function draw the cards on the screen depending on specific number as parameter, and use of css grid system to handle responsivness
 function drawCards(number) {
     let cardsContainer = document.createElement("div");
     //add bootstrap classes to the container div
-    cardsContainer.classList.add("container","text-center");
+    cardsContainer.classList.add("container", "text-center");
     gameBoard.appendChild(cardsContainer);
-    const cardsCount = 2*number;
+    const cardsCount = 2 * number;
     let row = document.createElement("div");
     //add bootstrap classes to row div
     row.classList.add("row", "row-cols-4");
     cardsContainer.appendChild(row);
- 
+
     for (let i = 0; i < cardsCount; i++) {
         let column = document.createElement("div");
         //add bootstrap class to column div
@@ -91,11 +101,11 @@ function drawCards(number) {
 }
 
 //this function draw timeline for levels to allow user navigate between solved levels, using of css grid system to handle responsivness
-function drawLevelsTimeline(){
+function drawLevelsTimeline() {
     const levelsTimeLine = document.querySelector("#levels-timeline");
     let cardsContainer = document.createElement("div");
     //add bootstrap classes to the container div
-    cardsContainer.classList.add("container","text-center");
+    cardsContainer.classList.add("container", "text-center");
     levelsTimeLine.appendChild(cardsContainer);
     let row = document.createElement("div");
     //add bootstrap classes to row div
@@ -111,7 +121,7 @@ function drawLevelsTimeline(){
 
         let levelButton = document.createElement("div");
         //add unique id to each button
-        let levelBtnID = "level-"+(i+1)+"-button";
+        let levelBtnID = "level-" + (i + 1) + "-button";
         levelButton.id = levelBtnID;
         //add classes to card div and implement them in css file
         levelButton.classList.add("level-button", "square");
@@ -119,11 +129,11 @@ function drawLevelsTimeline(){
         column.appendChild(levelButton);
 
 
-        document.getElementById(levelBtnID).textContent = i+1;
+        document.getElementById(levelBtnID).textContent = i + 1;
     }
 }
 //open level when clicked from timeline
-function onLevelClick(btn){
+function onLevelClick(btn) {
     let levelButton = btn.target;
     let clickedLevel = levelButton.textContent;
     openLevel(clickedLevel);
@@ -135,6 +145,9 @@ function flip(card) {
     if (cardDiv === openedCard) {
         //if click on the same card again
     } else {
+        if (isSoundOn) {
+            flipSound.play();
+        }
         cardDiv.classList.toggle("unflipped");
         cardDiv.classList.toggle("flipped");
     }
@@ -244,6 +257,9 @@ function onCardClick(card) {
 function checkLastRound() {
     //check if all cards are flipped successfully
     if (openedCardsArray.length == cardsArray.length) {
+        if (isSoundOn) {
+            winningSound.play();
+        }
         successModal.show();
         stopTimer();
     }
@@ -282,24 +298,39 @@ function restartLevel() {
 }
 
 function openLevel(number) {
-        currentLevel = number;
-        numberOfImages = Number(currentLevel)+1;
-        cardsArray = [];
-        openedCardsArray = [];
-        closedCardsArray = [];
-        isSecondClick = false;
-        openedCard = null;
-        gameBoard.textContent = "";
-        console.log(currentLevel);
-        drawCards(numberOfImages);
-        distributeImages();
-        resetTimer();
+    currentLevel = number;
+    numberOfImages = Number(currentLevel) + 1;
+    cardsArray = [];
+    openedCardsArray = [];
+    closedCardsArray = [];
+    isSecondClick = false;
+    openedCard = null;
+    gameBoard.textContent = "";
+    drawCards(numberOfImages);
+    distributeImages();
+    resetTimer();
 
 }
 
 function showThemeModal() {
     restartLevel();
     themeModal.show();
+}
+
+//toggle sound option (turn on/off)
+function onSoundClick() {
+    let soundBtnOn = document.getElementById("sound-on");
+    let soundBtnOff = document.getElementById("sound-off");
+    if (isSoundOn) {
+        soundBtnOff.style.display = "block";
+        soundBtnOn.style.display = "none";
+
+    } else {
+        soundBtnOff.style.display = "none";
+        soundBtnOn.style.display = "block";
+    }
+    isSoundOn = !isSoundOn;
+
 }
 
 //choose cards theme by user
@@ -327,9 +358,6 @@ drawCards(numberOfImages);
 drawLevelsTimeline();
 themeModal.show();
 updateTheme();
-
-
-
 
 var seconds = 00;
 var minutes = 00;
