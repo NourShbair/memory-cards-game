@@ -12,7 +12,7 @@ body {
 #controllers {
     height: 10vh;
     margin-top: 5vh;
-    margin-bottom: 3vh;
+    /* margin-bottom: 3vh; */
     align-content: center;
     background-color: #93BB50;
     color: #F3F8FF;
@@ -24,7 +24,7 @@ body {
 }
 
 #timer {
-    font-size: 1rem;
+    font-size: 1.2rem;
     align-content: center;
 }
 
@@ -33,8 +33,8 @@ body {
     align-content: center;
 }
 
-#user-controllers {
-    font-size: 1rem;
+#controllers-btns-container {
+    font-size: 1.2rem;
     align-content: center;
 }
 
@@ -46,7 +46,6 @@ body {
 .card {
     background-color: #F3F8FF;
     border-color: #F3F8FF;
-    font-size: 5em;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -65,6 +64,9 @@ body {
 
 /* display the background img to card if not flipped*/
 .flipped {
+    /* to show images from the card */
+    font-size: 2.5em;
+    /* add animation when card flipped */
     transform: rotateY(180deg);
 }
 
@@ -74,11 +76,12 @@ body {
 }
 
 /* customize bootsrap modal with website theme and style */
-.modal-content{
-    border-color: #F3F8FF;    
+.modal-content {
+    border-color: #F3F8FF;
     border-width: 5px;
     border-style: double;
 }
+
 .modal-header {
     background-color: #e26ee5;
     color: #F3F8FF;
@@ -106,7 +109,7 @@ body {
     color: #1F4172;
 }
 
-.theme-modal-btn{
+.theme-modal-btn {
     width: 2em;
     height: 2em;
     font-size: 2em;
@@ -115,6 +118,7 @@ body {
 /* Media query: large or landscape phones (576px and up) */
 @media screen and (min-width: 576px) {
 
+    
 }
 
 /* Media query: tablets and larger (768px and up) */
@@ -124,17 +128,21 @@ body {
         margin-top: 7vh;
         margin-bottom: 3vh;
     }
-    
+
     #timer {
         font-size: 1.4rem;
     }
-    
+
     #level-number {
         font-size: 2rem;
     }
-    
-    #user-controllers {
+
+    #controllers-btns-container {
         font-size: 1.4rem;
+    }
+
+    .flipped {
+        font-size: 5em;
     }
 }
 
@@ -145,17 +153,21 @@ body {
         margin-top: 10vh;
         margin-bottom: 5vh;
     }
-    
+
     #timer {
         font-size: 1.8rem;
     }
-    
+
     #level-number {
         font-size: 2.2rem;
     }
-    
-    #user-controllers {
+
+    #controllers-btns-container {
         font-size: 1.8rem;
+    }
+
+    .flipped {
+        font-size: 6em;
     }
 }
 
@@ -166,17 +178,20 @@ body {
         margin-top: 10vh;
         margin-bottom: 5vh;
     }
-    
+
     #timer {
         font-size: 1.8rem;
     }
-    
+
     #level-number {
         font-size: 2.2rem;
     }
-    
-    #user-controllers {
+
+    #controllers-btns-container {
         font-size: 1.8rem;
     }
-}
 
+    .flipped {
+        font-size: 7em;
+    }
+}

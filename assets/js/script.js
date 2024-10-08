@@ -62,21 +62,22 @@ restartBtn.addEventListener('click', restartLevel);
 function drawCards(number) {
     let cardsContainer = document.createElement("div");
     //add bootstrap classes to the container div
-    cardsContainer.classList.add("container", "text-center");
+    cardsContainer.classList.add("container","text-center");
     gameBoard.appendChild(cardsContainer);
+
+    const cardsCount = 2 * number;
 
     let row = document.createElement("div");
     //add bootstrap classes to row div
-    row.classList.add("row", "row-cols-3", "row-cols-lg-4", "g-2", "g-lg-3");
+    row.classList.add("row", "row-cols-4");
     cardsContainer.appendChild(row);
 
-    const cardsCount = 2 * number;
 
     for (let i = 0; i < cardsCount; i++) {
 
         let column = document.createElement("div");
         //add bootstrap class to column div
-        column.classList.add("col");
+        column.classList.add("col", "g-4");
         row.appendChild(column);
 
         let card = document.createElement("div");
@@ -126,7 +127,6 @@ function distributeImages() {
         currentImages[shuffledIndex1] = imagesArray[i];
         currentImages[shuffledIndex2] = imagesArray[i];
     }
-    console.log(currentImages);
 }
 
 //this function to shuffle any array items
