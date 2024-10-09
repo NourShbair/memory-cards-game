@@ -69,11 +69,24 @@ let flipSound = new Audio('flip-card-sound.mp3');
 let winningSound = new Audio('winning-sound.mp3');
 
 let isSoundOn = false;
+let seconds = 00;
+let minutes = 00;
+let appendMinutes = document.getElementById("minutes")
+let appendSeconds = document.getElementById("seconds")
+let Interval;
 
 let storedCurrentLevel = localStorage.getItem("currentLevel");
 if (storedCurrentLevel) {
     currentLevel = storedCurrentLevel;
     numberOfImages = Number(currentLevel) + 1;
+}
+let chosenTheme="";
+let storedTheme = localStorage.getItem("theme");
+if(storedTheme){
+    chosenTheme = storedTheme;
+}else
+{
+    showThemeModal();
 }
 
 //this function draw the cards on the screen depending on specific number as parameter, and use of css grid system to handle responsivness
@@ -86,13 +99,13 @@ function drawCards(number) {
     const cardsCount = 2 * number;
     let row = document.createElement("div");
     //add bootstrap classes to row div
-    row.classList.add("row", "row-cols-4");
+    row.classList.add("row", "row-cols-sm-4","row-cols-4","row-cols-md-6","row-cols-lg-8", "d-felx", "justify-content-center");
     cardsContainer.appendChild(row);
 
     for (let i = 0; i < cardsCount; i++) {
         let column = document.createElement("div");
         //add bootstrap class to column div
-        column.classList.add("col", "g-4");
+        column.classList.add("col", "g-sm-4", "g-4", "g-md-4", "g-lg-5");
         row.appendChild(column);
         let card = document.createElement("div");
         //add unique id to each card
@@ -357,30 +370,32 @@ function openNextLevel() {
 
     //choose cards theme by user
     function updateTheme(btn) {
-
         let btnID = "";
         if (btn) {
             btnID = btn.target.id;
         }
-        if (btnID == "activities-btn") {
+        if ((btnID == "activities-btn") || (storedTheme == "activities")) {
             imagesArray = activitiesArray;
-        } else if (btnID == "smiley-btn") {
+            chosenTheme = "activities";
+        } else if ((btnID == "smiley-btn") || (storedTheme == "smileys")) {
             imagesArray = smileysArray;
-        } else if (btnID == "animals-btn") {
+            chosenTheme = "smileys";
+        } else if ((btnID == "animals-btn") || (storedTheme == "animals")) {
             imagesArray = animalsArray;
+            chosenTheme = "animals";
         } else {
             //default case
             imagesArray = fruitsArray;
+            chosenTheme = "fruits";
         }
+        localStorage.setItem("theme",chosenTheme);
         themeModal.hide();
         distributeImages();
+
+        
     }
 
-    var seconds = 00;
-    var minutes = 00;
-    var appendMinutes = document.getElementById("minutes")
-    var appendSeconds = document.getElementById("seconds")
-    var Interval;
+
 
     function launchTimer() {
         clearInterval(Interval);
@@ -421,5 +436,4 @@ function openNextLevel() {
 
     drawCards(numberOfImages);
     drawLevelsTimeline();
-    themeModal.show();
     updateTheme();

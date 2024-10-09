@@ -66,8 +66,15 @@ body {
     cursor: pointer;
 }
 
+.enabled:hover{
+    background-color: #ee98f1;
+
+}
+
 .disabled{
     background-color: gray;
+    border-color: gray;
+
 }
 
 #game{
