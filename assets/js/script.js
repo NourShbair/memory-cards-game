@@ -88,7 +88,11 @@ if(storedTheme){
 {
     showThemeModal();
 }
-
+let leaderboardArray=[];
+let leaderboardObject = {
+    level: "",
+    time: ""
+  }
 //this function draw the cards on the screen depending on specific number as parameter, and use of css grid system to handle responsivness
 function drawCards(number) {
 
@@ -105,13 +109,13 @@ function drawCards(number) {
     for (let i = 0; i < cardsCount; i++) {
         let column = document.createElement("div");
         //add bootstrap class to column div
-        column.classList.add("col", "g-sm-4", "g-4", "g-md-4", "g-lg-5");
+        column.classList.add("col", "g-sm-4", "g-4", "g-md-4", "g-lg-5","square");
         row.appendChild(column);
         let card = document.createElement("div");
         //add unique id to each card
         card.id = "card" + i
         //add classes to card div and implement them in css file
-        card.classList.add("card", "p-3", "square", "unflipped");
+        card.classList.add("card", "square", "unflipped");
         card.addEventListener('click', flip);
         card.addEventListener('click', onCardClick);
         column.appendChild(card);
@@ -126,14 +130,14 @@ function drawCards(number) {
 //this function draw timeline for levels to allow user navigate between solved levels, using of css grid system to handle responsivness
 function drawLevelsTimeline() {
     const levelsTimeLine = document.querySelector("#levels-timeline");
-    let cardsContainer = document.createElement("div");
+    let timelineContainer = document.createElement("div");
     //add bootstrap classes to the container div
-    cardsContainer.classList.add("container", "text-center");
-    levelsTimeLine.appendChild(cardsContainer);
+    timelineContainer.classList.add("container", "text-center","justify-content-center","align-items-center");
+    levelsTimeLine.appendChild(timelineContainer);
     let row = document.createElement("div");
     //add bootstrap classes to row div
-    row.classList.add("row", "row-cols-10");
-    cardsContainer.appendChild(row);
+    row.classList.add("row", "row-cols-10","gx-2");
+    timelineContainer.appendChild(row);
     //draw 10 button (levels) on timeline
     for (let i = 0; i < 10; i++) {
 
@@ -286,8 +290,17 @@ function checkLastRound() {
         if (isSoundOn) {
             winningSound.play();
         }
-        successModal.show();
-        stopTimer();
+
+
+        let leaderboardObject = {
+            level: currentLevel,
+            time: minutes+":"+seconds
+          }
+          leaderboardArray.push(leaderboardObject);
+          localStorage.setItem("leaderboard",leaderboardArray);
+          console.log(leaderboardArray);
+          successModal.show();
+          stopTimer();
     }
 }
 
