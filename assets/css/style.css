@@ -46,8 +46,12 @@ body {
     align-content: center;
 }
 
+/* the default case for sound is OFF */
+#sound-on{
+    display: none;
+}
+
 .level-button{
-    background-color: #e26ee5;
     color: #F3F8FF;
     border-width: 1px;
     border-color: #F3F8FF;
@@ -55,13 +59,17 @@ body {
     align-content: center;
     border-radius: 50%;
     height: 100%;
+}
+
+.enabled{
+    background-color: #e26ee5;
     cursor: pointer;
 }
 
-/* the default case for sound is OFF */
-#sound-on{
-    display: none;
+.disabled{
+    background-color: gray;
 }
+
 #game{
     margin-top: 0px;
 }

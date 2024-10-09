@@ -19,9 +19,6 @@ let activitiesArray = ["⚽", "🥎", "🏀", "🎾", "⚾", "🎱", "🎮", "�
 let openedCardsArray = [];
 let closedCardsArray = [];
 
-//declare numberOfImages
-let numberOfImages = 2;
-
 //declare boolean flag to check if this is the first or the second click on the same round
 let isSecondClick = false;
 
@@ -47,8 +44,14 @@ activitiesBtn.addEventListener('click', updateTheme);
 let changeThemeBtn = document.getElementById('theme-btn');
 changeThemeBtn.addEventListener('click', showThemeModal);
 
-let currentLevel = numberOfImages - 1;
+
+//declare numberOfImages
+let currentLevel = 1;
+let numberOfImages = currentLevel + 1;
+
+
 let isTimerLunched = false;
+
 //Get next level button
 let nextBtn = document.getElementById('next-btn');
 nextBtn.addEventListener('click', openNextLevel);
@@ -67,8 +70,15 @@ let winningSound = new Audio('winning-sound.mp3');
 
 let isSoundOn = false;
 
+let storedCurrentLevel = localStorage.getItem("currentLevel");
+if (storedCurrentLevel) {
+    currentLevel = storedCurrentLevel;
+    numberOfImages = Number(currentLevel) + 1;
+}
+
 //this function draw the cards on the screen depending on specific number as parameter, and use of css grid system to handle responsivness
 function drawCards(number) {
+
     let cardsContainer = document.createElement("div");
     //add bootstrap classes to the container div
     cardsContainer.classList.add("container", "text-center");
@@ -125,10 +135,13 @@ function drawLevelsTimeline() {
         levelButton.id = levelBtnID;
         //add classes to card div and implement them in css file
         levelButton.classList.add("level-button", "square");
-        levelButton.addEventListener('click', onLevelClick);
+        if (i < currentLevel) {
+            levelButton.classList.add("enabled");
+            levelButton.addEventListener('click', onLevelClick);
+        } else {
+            levelButton.classList.add("disabled");
+        }
         column.appendChild(levelButton);
-
-
         document.getElementById(levelBtnID).textContent = i + 1;
     }
 }
@@ -283,121 +296,130 @@ function openNextLevel() {
         distributeImages();
         resetTimer();
     }
-}
+    let storedCurrentLevel = localStorage.getItem("currentLevel");
+    if (storedCurrentLevel < currentLevel) {
+        //update levels timeline and local storage with the new level
+        localStorage.setItem("currentLevel", currentLevel);
+        let levelBtnID = "level-" + currentLevel + "-button";
+        let levelButton = document.getElementById(levelBtnID);
+        levelButton.classList.remove("disabled");
+        levelButton.classList.add("enabled");
 
-function restartLevel() {
-    cardsArray = [];
-    openedCardsArray = [];
-    closedCardsArray = [];
-    isSecondClick = false;
-    openedCard = null;
-    gameBoard.textContent = "";
-    drawCards(numberOfImages);
-    distributeImages();
-    resetTimer();
-}
-
-function openLevel(number) {
-    currentLevel = number;
-    numberOfImages = Number(currentLevel) + 1;
-    cardsArray = [];
-    openedCardsArray = [];
-    closedCardsArray = [];
-    isSecondClick = false;
-    openedCard = null;
-    gameBoard.textContent = "";
-    drawCards(numberOfImages);
-    distributeImages();
-    resetTimer();
-
-}
-
-function showThemeModal() {
-    restartLevel();
-    themeModal.show();
-}
-
-//toggle sound option (turn on/off)
-function onSoundClick() {
-    let soundBtnOn = document.getElementById("sound-on");
-    let soundBtnOff = document.getElementById("sound-off");
-    if (isSoundOn) {
-        soundBtnOff.style.display = "block";
-        soundBtnOn.style.display = "none";
-
-    } else {
-        soundBtnOff.style.display = "none";
-        soundBtnOn.style.display = "block";
     }
-    isSoundOn = !isSoundOn;
-
 }
-
-//choose cards theme by user
-function updateTheme(btn) {
-
-    let btnID = "";
-    if (btn) {
-        btnID = btn.target.id;
+    function restartLevel() {
+        cardsArray = [];
+        openedCardsArray = [];
+        closedCardsArray = [];
+        isSecondClick = false;
+        openedCard = null;
+        gameBoard.textContent = "";
+        drawCards(numberOfImages);
+        distributeImages();
+        resetTimer();
     }
-    if (btnID == "activities-btn") {
-        imagesArray = activitiesArray;
-    } else if (btnID == "smiley-btn") {
-        imagesArray = smileysArray;
-    } else if (btnID == "animals-btn") {
-        imagesArray = animalsArray;
-    } else {
-        //default case
-        imagesArray = fruitsArray;
+
+    function openLevel(number) {
+        currentLevel = number;
+        numberOfImages = Number(currentLevel) + 1;
+        cardsArray = [];
+        openedCardsArray = [];
+        closedCardsArray = [];
+        isSecondClick = false;
+        openedCard = null;
+        gameBoard.textContent = "";
+        drawCards(numberOfImages);
+        distributeImages();
+        resetTimer();
+
     }
-    themeModal.hide();
-    distributeImages();
-}
 
-drawCards(numberOfImages);
-drawLevelsTimeline();
-themeModal.show();
-updateTheme();
-
-var seconds = 00;
-var minutes = 00;
-var appendMinutes = document.getElementById("minutes")
-var appendSeconds = document.getElementById("seconds")
-var Interval;
-
-function launchTimer() {
-    clearInterval(Interval);
-    Interval = setInterval(startTimer, 1000);
-}
-
-function startTimer() {
-    seconds++;
-    if (seconds <= 9) {
-        appendSeconds.innerHTML = "0" + seconds;
+    function showThemeModal() {
+        restartLevel();
+        themeModal.show();
     }
-    if (seconds > 9) {
+
+    //toggle sound option (turn on/off)
+    function onSoundClick() {
+        let soundBtnOn = document.getElementById("sound-on");
+        let soundBtnOff = document.getElementById("sound-off");
+        if (isSoundOn) {
+            soundBtnOff.style.display = "block";
+            soundBtnOn.style.display = "none";
+
+        } else {
+            soundBtnOff.style.display = "none";
+            soundBtnOn.style.display = "block";
+        }
+        isSoundOn = !isSoundOn;
+
+    }
+
+    //choose cards theme by user
+    function updateTheme(btn) {
+
+        let btnID = "";
+        if (btn) {
+            btnID = btn.target.id;
+        }
+        if (btnID == "activities-btn") {
+            imagesArray = activitiesArray;
+        } else if (btnID == "smiley-btn") {
+            imagesArray = smileysArray;
+        } else if (btnID == "animals-btn") {
+            imagesArray = animalsArray;
+        } else {
+            //default case
+            imagesArray = fruitsArray;
+        }
+        themeModal.hide();
+        distributeImages();
+    }
+
+    var seconds = 00;
+    var minutes = 00;
+    var appendMinutes = document.getElementById("minutes")
+    var appendSeconds = document.getElementById("seconds")
+    var Interval;
+
+    function launchTimer() {
+        clearInterval(Interval);
+        Interval = setInterval(startTimer, 1000);
+    }
+
+    function startTimer() {
+        seconds++;
+        if (seconds <= 9) {
+            appendSeconds.innerHTML = "0" + seconds;
+        }
+        if (seconds > 9) {
+            appendSeconds.innerHTML = seconds;
+        }
+        if (seconds > 59) {
+            minutes++;
+            appendMinutes.innerHTML = "0" + minutes;
+            seconds = 0;
+            appendSeconds.innerHTML = "0" + 0;
+        }
+        if (minutes > 9) {
+            appendMinutes.innerHTML = minutes;
+        }
+    }
+
+    function stopTimer() {
+        clearInterval(Interval);
+    }
+
+    function resetTimer() {
+        isTimerLunched = false;
+        clearInterval(Interval);
+        minutes = "00";
+        seconds = "00";
+        appendMinutes.innerHTML = minutes;
         appendSeconds.innerHTML = seconds;
     }
-    if (seconds > 59) {
-        minutes++;
-        appendMinutes.innerHTML = "0" + minutes;
-        seconds = 0;
-        appendSeconds.innerHTML = "0" + 0;
-    }
-    if (minutes > 9) {
-        appendMinutes.innerHTML = minutes;
-    }
-}
 
-function stopTimer() {
-    clearInterval(Interval);
-}
-
-function resetTimer() {
-    isTimerLunched = false;
-    clearInterval(Interval);
-    minutes = "00";
-    seconds = "00";
-    appendMinutes.innerHTML = minutes;
-    appendSeconds.innerHTML = seconds;
-}
+    drawCards(numberOfImages);
+    drawLevelsTimeline();
+    themeModal.show();
+    updateTheme();
