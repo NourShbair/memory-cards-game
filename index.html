@@ -34,7 +34,7 @@
     <div id="controllers" class="container text-center">
         <div class="row text-center">
             <div id="timer" class="col-2 jersey-25-regular">
-                <i class="fa-solid fa-hourglass-half"></i> 
+                <i class="fa-solid fa-hourglass-half"></i>
                 <!-- timer in minutes and seconds-->
                 <span id="minutes">00</span>:<span id="seconds">00</span>
             </div>
@@ -45,10 +45,11 @@
                     <div id="sound-on"><i class="fa-solid fa-volume-high"></i></div>
                     <div id="sound-off"><i class="fa-solid fa-volume-xmark"></i></div>
                 </div>
-                <div id="leaderboard-btn" class="control-btn col-3 jersey-25-regular"><i class="fa-solid fa-trophy"></i></div>
-                <div id="refresh-btn" class="control-btn col-3 jersey-25-regular"><i class="fa-solid fa-power-off"></i></div>
+                <div id="leaderboard-btn" class="control-btn col-3 jersey-25-regular"><i class="fa-solid fa-trophy"></i>
+                </div>
+                <div id="refresh-btn" class="control-btn col-3 jersey-25-regular"><i class="fa-solid fa-power-off"></i>
+                </div>
             </div>
-
         </div>
     </div>
 
@@ -99,6 +100,37 @@
             </div>
         </div>
     </div>
+
+    <!-- Leaderboard modal(show the least time achieved for each level) -->
+    <div class="modal fade" id="leaderboard-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">🏆 Leaderboard! 🏆</h1>
+                </div>
+                <div class="modal-body">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-12" id="no-previous-wins">
+                            </div>
+                            <div class="col-6" id="level-number-section">
+                            </div>
+                            <div class="col-6" id="least-time-per-level-section">
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+
 
     <!-- Linking Java Script File -->
     <script src="assets/js/script.js"></script>

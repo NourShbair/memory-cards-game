@@ -25,6 +25,9 @@ let isSecondClick = false;
 //declare card variable which is the opened card in the same round
 let openedCard = null;
 
+// Get the leaderboard modal element 
+var leaderboardModal = new bootstrap.Modal(document.getElementById('leaderboard-modal'));
+
 // Get the success modal element 
 var successModal = new bootstrap.Modal(document.getElementById('success-modal'));
 
@@ -44,6 +47,8 @@ activitiesBtn.addEventListener('click', updateTheme);
 let changeThemeBtn = document.getElementById('theme-btn');
 changeThemeBtn.addEventListener('click', showThemeModal);
 
+let leaderboardBtn = document.getElementById('leaderboard-btn');
+leaderboardBtn.addEventListener('click', showLeaderboardModal);
 
 //declare numberOfImages
 let currentLevel = 1;
@@ -80,22 +85,21 @@ if (storedCurrentLevel) {
     currentLevel = storedCurrentLevel;
     numberOfImages = Number(currentLevel) + 1;
 }
-let chosenTheme="";
+let chosenTheme = "";
 let storedTheme = localStorage.getItem("theme");
-if(storedTheme){
+if (storedTheme) {
     chosenTheme = storedTheme;
-}else
-{
+} else {
     showThemeModal();
 }
-let leaderboardArray=[];
+let leaderboardArray = [];
 let leaderboardObject = {
     level: "",
     time: ""
-  }
+}
+
 //this function draw the cards on the screen depending on specific number as parameter, and use of css grid system to handle responsivness
 function drawCards(number) {
-
     let cardsContainer = document.createElement("div");
     //add bootstrap classes to the container div
     cardsContainer.classList.add("container", "text-center");
@@ -103,13 +107,12 @@ function drawCards(number) {
     const cardsCount = 2 * number;
     let row = document.createElement("div");
     //add bootstrap classes to row div
-    row.classList.add("row", "row-cols-sm-4","row-cols-4","row-cols-md-6","row-cols-lg-8", "d-felx", "justify-content-center");
+    row.classList.add("row", "row-cols-sm-4", "row-cols-4", "row-cols-md-6", "row-cols-lg-8", "d-felx", "justify-content-center");
     cardsContainer.appendChild(row);
-
     for (let i = 0; i < cardsCount; i++) {
         let column = document.createElement("div");
         //add bootstrap class to column div
-        column.classList.add("col", "g-sm-4", "g-4", "g-md-4", "g-lg-5","square");
+        column.classList.add("col", "g-sm-4", "g-4", "g-md-4", "g-lg-5", "square");
         row.appendChild(column);
         let card = document.createElement("div");
         //add unique id to each card
@@ -132,11 +135,11 @@ function drawLevelsTimeline() {
     const levelsTimeLine = document.querySelector("#levels-timeline");
     let timelineContainer = document.createElement("div");
     //add bootstrap classes to the container div
-    timelineContainer.classList.add("container", "text-center","justify-content-center","align-items-center");
+    timelineContainer.classList.add("container", "text-center", "justify-content-center", "align-items-center");
     levelsTimeLine.appendChild(timelineContainer);
     let row = document.createElement("div");
     //add bootstrap classes to row div
-    row.classList.add("row", "row-cols-10","gx-2");
+    row.classList.add("row", "row-cols-10", "gx-2");
     timelineContainer.appendChild(row);
     //draw 10 button (levels) on timeline
     for (let i = 0; i < 10; i++) {
@@ -290,17 +293,23 @@ function checkLastRound() {
         if (isSoundOn) {
             winningSound.play();
         }
-
-
         let leaderboardObject = {
             level: currentLevel,
-            time: minutes+":"+seconds
-          }
-          leaderboardArray.push(leaderboardObject);
-          localStorage.setItem("leaderboard",leaderboardArray);
-          console.log(leaderboardArray);
-          successModal.show();
-          stopTimer();
+            time: minutes + ":" + seconds
+        }
+        let storedLeaderboard = localStorage.getItem("leaderboard");
+        if(storedLeaderboard){
+            leaderboardArray = JSON.parse(storedLeaderboard);
+
+        }else{
+            leaderboardArray = [];
+        }
+        leaderboardArray.push(leaderboardObject);
+
+        let stringiedLeaderboardArray = JSON.stringify(leaderboardArray);
+        localStorage.setItem("leaderboard", stringiedLeaderboardArray);
+        successModal.show();
+        stopTimer();
     }
 }
 
@@ -333,120 +342,154 @@ function openNextLevel() {
 
     }
 }
-    function restartLevel() {
-        cardsArray = [];
-        openedCardsArray = [];
-        closedCardsArray = [];
-        isSecondClick = false;
-        openedCard = null;
-        gameBoard.textContent = "";
-        drawCards(numberOfImages);
-        distributeImages();
-        resetTimer();
+function restartLevel() {
+    cardsArray = [];
+    openedCardsArray = [];
+    closedCardsArray = [];
+    isSecondClick = false;
+    openedCard = null;
+    gameBoard.textContent = "";
+    drawCards(numberOfImages);
+    distributeImages();
+    resetTimer();
+}
+
+function openLevel(number) {
+    currentLevel = number;
+    numberOfImages = Number(currentLevel) + 1;
+    cardsArray = [];
+    openedCardsArray = [];
+    closedCardsArray = [];
+    isSecondClick = false;
+    openedCard = null;
+    gameBoard.textContent = "";
+    drawCards(numberOfImages);
+    distributeImages();
+    resetTimer();
+
+}
+
+function showThemeModal() {
+    // restartLevel();
+    themeModal.show();
+}
+
+//toggle sound option (turn on/off)
+function onSoundClick() {
+    let soundBtnOn = document.getElementById("sound-on");
+    let soundBtnOff = document.getElementById("sound-off");
+    if (isSoundOn) {
+        soundBtnOff.style.display = "block";
+        soundBtnOn.style.display = "none";
+
+    } else {
+        soundBtnOff.style.display = "none";
+        soundBtnOn.style.display = "block";
     }
+    isSoundOn = !isSoundOn;
 
-    function openLevel(number) {
-        currentLevel = number;
-        numberOfImages = Number(currentLevel) + 1;
-        cardsArray = [];
-        openedCardsArray = [];
-        closedCardsArray = [];
-        isSecondClick = false;
-        openedCard = null;
-        gameBoard.textContent = "";
-        drawCards(numberOfImages);
-        distributeImages();
-        resetTimer();
+}
 
+//choose cards theme by user
+function updateTheme(btn) {
+    let btnID = "";
+    if (btn) {
+        btnID = btn.target.id;
     }
-
-    function showThemeModal() {
-        restartLevel();
-        themeModal.show();
+    if ((btnID == "activities-btn") || (storedTheme == "activities")) {
+        imagesArray = activitiesArray;
+        chosenTheme = "activities";
+    } else if ((btnID == "smiley-btn") || (storedTheme == "smileys")) {
+        imagesArray = smileysArray;
+        chosenTheme = "smileys";
+    } else if ((btnID == "animals-btn") || (storedTheme == "animals")) {
+        imagesArray = animalsArray;
+        chosenTheme = "animals";
+    } else {
+        //default case
+        imagesArray = fruitsArray;
+        chosenTheme = "fruits";
     }
+    localStorage.setItem("theme", chosenTheme);
+    themeModal.hide();
+    distributeImages();
+}
 
-    //toggle sound option (turn on/off)
-    function onSoundClick() {
-        let soundBtnOn = document.getElementById("sound-on");
-        let soundBtnOff = document.getElementById("sound-off");
-        if (isSoundOn) {
-            soundBtnOff.style.display = "block";
-            soundBtnOn.style.display = "none";
+function showLeaderboardModal() {
+    let levelNumberDiv = document.getElementById("level-number-section");
+    let leastTimePerLevelDiv = document.getElementById("least-time-per-level-section");
+    let storedLeaderboard = localStorage.getItem("leaderboard");
+    let storedLeaderboardArray = JSON.parse(storedLeaderboard);
+    // let timeArray = storedLeaderboardArray.map( (item) => item.time);
+    let noWinsDiv = document.getElementById("no-previous-wins");
 
-        } else {
-            soundBtnOff.style.display = "none";
-            soundBtnOn.style.display = "block";
+    if (storedLeaderboardArray) {
+        for (let i = 0; i < storedLeaderboardArray.length; i++) {
+            noWinsDiv.style.display="none";
+            let levelChildDiv = document.createElement("div");
+            let levelID = "level-number-" + i;
+            levelChildDiv.id = levelID;
+            levelNumberDiv.appendChild(levelChildDiv);
+            let timeChildDiv = document.createElement("div");
+            let timeID = "time" + i;
+            timeChildDiv.id = timeID;
+            leastTimePerLevelDiv.appendChild(timeChildDiv);
+
+            let levelNumberLabel = document.getElementById(levelID);
+            levelNumberLabel.textContent = "Level " + Number(i + 1);
+
+            let timeLabel = document.getElementById(timeID);
+            timeLabel.textContent = storedLeaderboardArray[i]["time"];
         }
-        isSoundOn = !isSoundOn;
-
-    }
-
-    //choose cards theme by user
-    function updateTheme(btn) {
-        let btnID = "";
-        if (btn) {
-            btnID = btn.target.id;
-        }
-        if ((btnID == "activities-btn") || (storedTheme == "activities")) {
-            imagesArray = activitiesArray;
-            chosenTheme = "activities";
-        } else if ((btnID == "smiley-btn") || (storedTheme == "smileys")) {
-            imagesArray = smileysArray;
-            chosenTheme = "smileys";
-        } else if ((btnID == "animals-btn") || (storedTheme == "animals")) {
-            imagesArray = animalsArray;
-            chosenTheme = "animals";
-        } else {
-            //default case
-            imagesArray = fruitsArray;
-            chosenTheme = "fruits";
-        }
-        localStorage.setItem("theme",chosenTheme);
-        themeModal.hide();
-        distributeImages();
-
+    } else {
+        levelNumberDiv.style.display="none";
+        leastTimePerLevelDiv.style.display="none";
+        noWinsDiv.textContent = "You didn't win any game yet!";
         
     }
+    leaderboardModal.show();
 
+}
 
+function launchTimer() {
+    clearInterval(Interval);
+    Interval = setInterval(startTimer, 1000);
+}
 
-    function launchTimer() {
-        clearInterval(Interval);
-        Interval = setInterval(startTimer, 1000);
+function startTimer() {
+    seconds++;
+    if (seconds <= 9) {
+        appendSeconds.innerHTML = "0" + seconds;
     }
-
-    function startTimer() {
-        seconds++;
-        if (seconds <= 9) {
-            appendSeconds.innerHTML = "0" + seconds;
-        }
-        if (seconds > 9) {
-            appendSeconds.innerHTML = seconds;
-        }
-        if (seconds > 59) {
-            minutes++;
-            appendMinutes.innerHTML = "0" + minutes;
-            seconds = 0;
-            appendSeconds.innerHTML = "0" + 0;
-        }
-        if (minutes > 9) {
-            appendMinutes.innerHTML = minutes;
-        }
-    }
-
-    function stopTimer() {
-        clearInterval(Interval);
-    }
-
-    function resetTimer() {
-        isTimerLunched = false;
-        clearInterval(Interval);
-        minutes = "00";
-        seconds = "00";
-        appendMinutes.innerHTML = minutes;
+    if (seconds > 9) {
         appendSeconds.innerHTML = seconds;
     }
+    if (seconds > 59) {
+        minutes++;
+        appendMinutes.innerHTML = "0" + minutes;
+        seconds = 0;
+        appendSeconds.innerHTML = "0" + 0;
+    }
+    if (minutes <= 9) {
+        appendMinutes.innerHTML = "0" + minutes;
+    }
+    if (minutes > 9) {
+        appendMinutes.innerHTML = minutes;
+    }
+}
 
-    drawCards(numberOfImages);
-    drawLevelsTimeline();
-    updateTheme();
+function stopTimer() {
+    clearInterval(Interval);
+}
+
+function resetTimer() {
+    isTimerLunched = false;
+    clearInterval(Interval);
+    minutes = "00";
+    seconds = "00";
+    appendMinutes.innerHTML = minutes;
+    appendSeconds.innerHTML = seconds;
+}
+drawCards(numberOfImages);
+drawLevelsTimeline();
+updateTheme();
