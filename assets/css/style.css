@@ -6,7 +6,7 @@
 }
 
 body {
-    background-color: #6D108B;
+    background-color: #200554;
 }
 
 #controllers {
@@ -14,7 +14,7 @@ body {
     margin-top: 5vh;
     margin-bottom: 2vh;
     align-content: center;
-    background-color: #93BB50;
+    background-color: #ff2b6c;
     color: #F3F8FF;
     border-color: #FFFFFF;
     border-width: 4px;
@@ -42,16 +42,16 @@ body {
     cursor: pointer;
 }
 
-#levels-timeline{
+#levels-timeline {
     align-content: center;
 }
 
 /* the default case for sound is OFF */
-#sound-on{
+#sound-on {
     display: none;
 }
 
-.level-button{
+.level-button {
     color: #F3F8FF;
     border-width: 1px;
     border-color: #F3F8FF;
@@ -62,28 +62,30 @@ body {
     width: 2em;
 }
 
-.enabled{
-    background-color: #e26ee5;
+.enabled {
+    background-color: #19a84f;
     cursor: pointer;
 }
 
-.enabled:hover{
-    background-color: #ee98f1;
+.enabled:hover {
+    background-color: #6bc88f;
 
 }
 
-.disabled{
-    background-color: rgb(174, 172, 172);
-    border-color:  rgb(174, 172, 172);
+.disabled {
+    /* background-color: rgb(174, 172, 172); */
+    border-color: rgb(174, 172, 172);
+    color: gray;
 
 }
 
-#game{
+#game {
     margin-top: 0px;
 }
+
 /* cards properties */
 .card {
-    background-color: #F9F8ED;
+    background-color: #F3F8FF;
     border-color: #F3F8FF;
     display: flex;
     justify-content: center;
@@ -96,7 +98,7 @@ body {
 /* display the background img to card if not flipped*/
 .unflipped {
     /* background: url('/assets/favicon/apple-touch-icon.png') no-repeat center; */
-    background-color: #F7ED6F;
+    background-color: #fcf05f;
     /* to hide images from the card */
     font-size: 0px;
 }
@@ -107,7 +109,7 @@ body {
     font-size: 3em;
     /* add animation when card flipped */
     transform: rotateY(180deg);
-    
+
 }
 
 /* cards dimensions */
@@ -123,7 +125,7 @@ body {
 }
 
 .modal-header {
-    background-color: #93BB50;
+    background-color: #19a84f;
     color: #F3F8FF;
     justify-content: center;
 }
@@ -143,8 +145,8 @@ body {
 }
 
 .btn-primary {
-    background-color: #E26EE5;
-    --bs-btn-hover-bg: #f999fc;
+    background-color: #ee8b20;
+    --bs-btn-hover-bg: #f2a85a;
     color: #F3F8FF;
 }
 
@@ -160,9 +162,7 @@ body {
 }
 
 /* Media query: large or landscape phones (576px and up) */
-@media screen and (min-width: 576px) {
-
-}
+@media screen and (min-width: 576px) {}
 
 /* Media query: tablets and larger (768px and up) */
 @media screen and (min-width: 768px) {
@@ -188,7 +188,7 @@ body {
         font-size: 3em;
     }
 
-    .level-button{
+    .level-button {
         width: 3em;
     }
 }
@@ -217,7 +217,7 @@ body {
         font-size: 4em;
     }
 
-    .level-button{
+    .level-button {
         width: 4em;
     }
 }
@@ -246,7 +246,7 @@ body {
         font-size: 5em;
     }
 
-    .level-button{
+    .level-button {
         width: 4em;
     }
 }

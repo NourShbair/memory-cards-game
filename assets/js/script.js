@@ -75,10 +75,10 @@ let flipSound = new Audio('../assets/audio/flip-card-sound.mp3');
 let winningSound = new Audio('../assets/audio/winning-sound.mp3');
 
 let isSoundOn = false;
-let seconds = 00;
-let minutes = 00;
-let appendMinutes = document.getElementById("minutes")
-let appendSeconds = document.getElementById("seconds")
+let seconds = 0;
+let minutes = 0;
+let appendMinutes = document.getElementById("minutes");
+let appendSeconds = document.getElementById("seconds");
 let Interval;
 
 let storedCurrentLevel = localStorage.getItem("currentLevel");
@@ -94,10 +94,6 @@ if (storedTheme) {
     showThemeModal();
 }
 let leaderboardArray = [];
-let leaderboardObject = {
-    level: "",
-    time: ""
-}
 
 //this function draw the cards on the screen depending on specific number as parameter, and use of css grid system to handle responsivness
 function drawCards(number) {
@@ -117,7 +113,7 @@ function drawCards(number) {
         row.appendChild(column);
         let card = document.createElement("div");
         //add unique id to each card
-        card.id = "card" + i
+        card.id = "card" + i;
         //add classes to card div and implement them in css file
         card.classList.add("card", "square", "unflipped");
         card.addEventListener('click', flip);
@@ -297,7 +293,7 @@ function checkLastRound() {
         let leaderboardObject = {
             level: currentLevel,
             time: minutes + ":" + seconds
-        }
+        };
         let storedLeaderboard = localStorage.getItem("leaderboard");
         if(storedLeaderboard){
             leaderboardArray = JSON.parse(storedLeaderboard);
@@ -440,7 +436,7 @@ function showLeaderboardModal() {
             levelNumberLabel.textContent = "Level " + Number(i + 1);
 
             let timeLabel = document.getElementById(timeID);
-            timeLabel.textContent = storedLeaderboardArray[i]["time"];
+            timeLabel.textContent = storedLeaderboardArray[i].time;
         }
     } else {
         levelNumberDiv.style.display="none";
