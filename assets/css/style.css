@@ -104,7 +104,7 @@ body {
 /* display the background img to card if not flipped*/
 .flipped {
     /* to show images from the card */
-    font-size: 2.5em;
+    font-size: 3em;
     /* add animation when card flipped */
     transform: rotateY(180deg);
     
@@ -162,7 +162,6 @@ body {
 /* Media query: large or landscape phones (576px and up) */
 @media screen and (min-width: 576px) {
 
-    
 }
 
 /* Media query: tablets and larger (768px and up) */
@@ -186,7 +185,7 @@ body {
     }
 
     .flipped {
-        font-size: 5em;
+        font-size: 3em;
     }
 
     .level-button{
@@ -215,7 +214,7 @@ body {
     }
 
     .flipped {
-        font-size: 6em;
+        font-size: 4em;
     }
 
     .level-button{
@@ -244,7 +243,7 @@ body {
     }
 
     .flipped {
-        font-size: 7em;
+        font-size: 5em;
     }
 
     .level-button{
