@@ -107,6 +107,7 @@ body {
     font-size: 2.5em;
     /* add animation when card flipped */
     transform: rotateY(180deg);
+    
 }
 
 /* cards dimensions */

@@ -1,3 +1,4 @@
+/* jshint esversion: 11 */
 //access the game div
 const gameBoard = document.querySelector("#game");
 
@@ -70,8 +71,8 @@ let soundBtn = document.getElementById('sound-btn');
 soundBtn.addEventListener('click', onSoundClick);
 
 //access audio files
-let flipSound = new Audio('flip-card-sound.mp3');
-let winningSound = new Audio('winning-sound.mp3');
+let flipSound = new Audio('../assets/audio/flip-card-sound.mp3');
+let winningSound = new Audio('../assets/audio/winning-sound.mp3');
 
 let isSoundOn = false;
 let seconds = 00;
