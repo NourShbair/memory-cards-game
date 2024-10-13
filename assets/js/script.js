@@ -71,8 +71,8 @@ let soundBtn = document.getElementById('sound-btn');
 soundBtn.addEventListener('click', onSoundClick);
 
 //access audio files
-let flipSound = new Audio('../assets/audio/flip-card-sound.mp3');
-let winningSound = new Audio('../assets/audio/winning-sound.mp3');
+let flipSound = new Audio('assets/audio/flip-card-sound.mp3');
+let winningSound = new Audio('assets/audio/winning-sound.mp3');
 
 let isSoundOn = false;
 let seconds = 0;
