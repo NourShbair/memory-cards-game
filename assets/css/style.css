@@ -29,7 +29,7 @@ body {
 }
 
 #level-number {
-    font-size: 1.5rem;
+    font-size: 1.3rem;
     align-content: center;
 }
 
@@ -145,8 +145,8 @@ body {
 }
 
 .btn-primary {
-    background-color: #ee8b20;
-    --bs-btn-hover-bg: #f2a85a;
+    background-color: #CB2D6F;
+    --bs-btn-hover-bg: #e4689c;
     color: #F3F8FF;
 }
 
