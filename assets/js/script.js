@@ -295,39 +295,44 @@ function checkLastRound() {
             time: minutes + ":" + seconds
         };
         let storedLeaderboard = localStorage.getItem("leaderboard");
-        if(storedLeaderboard){
+        if (storedLeaderboard) {
             leaderboardArray = JSON.parse(storedLeaderboard);
 
-        }else{
+        } else {
             leaderboardArray = [];
         }
         leaderboardArray.push(leaderboardObject);
 
         let stringiedLeaderboardArray = JSON.stringify(leaderboardArray);
         localStorage.setItem("leaderboard", stringiedLeaderboardArray);
-        successModal.show();
+        
         stopTimer();
+
+        if (currentLevel == 10) {
+            //check if it's the last level
+            showLeaderboardModal();
+        }
+        else{
+            successModal.show();
+        }
     }
 }
 
 function openNextLevel() {
-    if (currentLevel == 10) {
-        //check if it's the last level
-    }
-    else {
-        currentLevel++;
-        successModal.hide();
-        numberOfImages = numberOfImages + 1;
-        cardsArray = [];
-        openedCardsArray = [];
-        closedCardsArray = [];
-        isSecondClick = false;
-        openedCard = null;
-        gameBoard.textContent = "";
-        drawCards(numberOfImages);
-        distributeImages();
-        resetTimer();
-    }
+
+    currentLevel++;
+    successModal.hide();
+    numberOfImages = numberOfImages + 1;
+    cardsArray = [];
+    openedCardsArray = [];
+    closedCardsArray = [];
+    isSecondClick = false;
+    openedCard = null;
+    gameBoard.textContent = "";
+    drawCards(numberOfImages);
+    distributeImages();
+    resetTimer();
+
     let storedCurrentLevel = localStorage.getItem("currentLevel");
     if (storedCurrentLevel < currentLevel) {
         //update levels timeline and local storage with the new level
@@ -367,7 +372,7 @@ function openLevel(number) {
 }
 
 function showThemeModal() {
-    // restartLevel();
+
     themeModal.show();
 }
 
@@ -389,10 +394,14 @@ function onSoundClick() {
 
 //choose cards theme by user
 function updateTheme(btn) {
+    if (isTimerLunched) {
+        restartLevel();
+    }
     let btnID = "";
     if (btn) {
         btnID = btn.target.id;
     }
+    console.log(btnID);
     if ((btnID == "activities-btn") || (storedTheme == "activities")) {
         imagesArray = activitiesArray;
         chosenTheme = "activities";
@@ -406,6 +415,8 @@ function updateTheme(btn) {
         //default case
         imagesArray = fruitsArray;
         chosenTheme = "fruits";
+        console.log(imagesArray);
+
     }
     localStorage.setItem("theme", chosenTheme);
     themeModal.hide();
@@ -422,7 +433,7 @@ function showLeaderboardModal() {
 
     if (storedLeaderboardArray) {
         for (let i = 0; i < storedLeaderboardArray.length; i++) {
-            noWinsDiv.style.display="none";
+            noWinsDiv.style.display = "none";
             let levelChildDiv = document.createElement("div");
             let levelID = "level-number-" + i;
             levelChildDiv.id = levelID;
@@ -439,10 +450,10 @@ function showLeaderboardModal() {
             timeLabel.textContent = storedLeaderboardArray[i].time;
         }
     } else {
-        levelNumberDiv.style.display="none";
-        leastTimePerLevelDiv.style.display="none";
+        levelNumberDiv.style.display = "none";
+        leastTimePerLevelDiv.style.display = "none";
         noWinsDiv.textContent = "You didn't win any game yet!";
-        
+
     }
     leaderboardModal.show();
 
