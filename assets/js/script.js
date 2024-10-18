@@ -51,9 +51,14 @@ changeThemeBtn.addEventListener('click', showThemeModal);
 let leaderboardBtn = document.getElementById('leaderboard-btn');
 leaderboardBtn.addEventListener('click', showLeaderboardModal);
 
-//declare numberOfImages
+//declare current level
 let currentLevel = 1;
-let numberOfImages = currentLevel + 1;
+
+//declare the highest level solved by the user
+let highestActiveLevel = 1;
+
+//declare numberOfImages
+let numberOfImages = highestActiveLevel + 1;
 
 
 let isTimerLunched = false;
@@ -81,10 +86,11 @@ let appendMinutes = document.getElementById("minutes");
 let appendSeconds = document.getElementById("seconds");
 let Interval;
 
-let storedCurrentLevel = localStorage.getItem("currentLevel");
-if (storedCurrentLevel) {
-    currentLevel = storedCurrentLevel;
-    numberOfImages = Number(currentLevel) + 1;
+let storedHighestActiveLevel = localStorage.getItem("highestActiveLevel");
+if (storedHighestActiveLevel) {
+    highestActiveLevel = storedHighestActiveLevel;
+    currentLevel = storedHighestActiveLevel;
+    numberOfImages = Number(highestActiveLevel) + 1;
 }
 let chosenTheme = "";
 let storedTheme = localStorage.getItem("theme");
@@ -93,7 +99,8 @@ if (storedTheme) {
 } else {
     showThemeModal();
 }
-let leaderboardArray = [];
+//this array to store the least time for each level (10 levels)
+let leaderboardArray = ["", "", "", "", "", "", "", "", "", ""];
 
 //this function draw the cards on the screen depending on specific number as parameter, and use of css grid system to handle responsivness
 function drawCards(number) {
@@ -152,7 +159,7 @@ function drawLevelsTimeline() {
         levelButton.id = levelBtnID;
         //add classes to card div and implement them in css file
         levelButton.classList.add("level-button", "square");
-        if (i < currentLevel) {
+        if (i < highestActiveLevel) {
             levelButton.classList.add("enabled");
             levelButton.addEventListener('click', onLevelClick);
         } else {
@@ -290,25 +297,37 @@ function checkLastRound() {
         if (isSoundOn) {
             winningSound.play();
         }
-        let leaderboardObject = {
-            level: currentLevel,
-            time: minutes + ":" + seconds
-        };
+        
         let storedLeaderboard = localStorage.getItem("leaderboard");
         if (storedLeaderboard) {
             leaderboardArray = JSON.parse(storedLeaderboard);
+            let storedCurrentLevelTime = leaderboardArray[currentLevel-1];
 
-        } else {
-            leaderboardArray = [];
+            let storedCurrentLevelTimeSplited= storedCurrentLevelTime? storedCurrentLevelTime.split(":") : "";
+            let storedCurrentLevelTimeInSeconds = storedCurrentLevelTimeSplited?(Number(storedCurrentLevelTimeSplited[0])*60) + (Number(storedCurrentLevelTimeSplited[1])) : ""; 
+
+            let currentLevelTimeInSeconds = (Number(minutes)*60) + Number(seconds); 
+
+            console.log(storedCurrentLevelTimeInSeconds);
+            console.log(currentLevelTimeInSeconds);
+            if((storedCurrentLevelTimeInSeconds=="")|| (currentLevelTimeInSeconds<storedCurrentLevelTimeInSeconds)){
+                leaderboardArray[currentLevel-1]=minutes + ":" + seconds;
+            } 
+
+        } 
+        else {
+            // leaderboardArray = [];
+            leaderboardArray[currentLevel-1]=minutes + ":" + seconds;
+
         }
-        leaderboardArray.push(leaderboardObject);
 
         let stringiedLeaderboardArray = JSON.stringify(leaderboardArray);
         localStorage.setItem("leaderboard", stringiedLeaderboardArray);
-        
-        stopTimer();
 
-        if (currentLevel == 10) {
+
+        resetTimer();
+
+        if (highestActiveLevel == 10) {
             //check if it's the last level
             showLeaderboardModal();
         }
@@ -319,10 +338,9 @@ function checkLastRound() {
 }
 
 function openNextLevel() {
-
     currentLevel++;
     successModal.hide();
-    numberOfImages = numberOfImages + 1;
+    numberOfImages = currentLevel + 1;
     cardsArray = [];
     openedCardsArray = [];
     closedCardsArray = [];
@@ -333,11 +351,12 @@ function openNextLevel() {
     distributeImages();
     resetTimer();
 
-    let storedCurrentLevel = localStorage.getItem("currentLevel");
-    if (storedCurrentLevel < currentLevel) {
+    let storedHighestActiveLevel = localStorage.getItem("highestActiveLevel");
+    if (storedHighestActiveLevel < currentLevel) {
         //update levels timeline and local storage with the new level
-        localStorage.setItem("currentLevel", currentLevel);
-        let levelBtnID = "level-" + currentLevel + "-button";
+        highestActiveLevel=currentLevel;
+        localStorage.setItem("highestActiveLevel", highestActiveLevel);
+        let levelBtnID = "level-" + highestActiveLevel + "-button";
         let levelButton = document.getElementById(levelBtnID);
         levelButton.classList.remove("disabled");
         levelButton.classList.add("enabled");
@@ -357,6 +376,8 @@ function restartLevel() {
 }
 
 function openLevel(number) {
+    // highestActiveLevel = number;
+    console.log(number);
     currentLevel = number;
     numberOfImages = Number(currentLevel) + 1;
     cardsArray = [];
@@ -401,7 +422,6 @@ function updateTheme(btn) {
     if (btn) {
         btnID = btn.target.id;
     }
-    console.log(btnID);
     if ((btnID == "activities-btn") || (storedTheme == "activities")) {
         imagesArray = activitiesArray;
         chosenTheme = "activities";
@@ -415,8 +435,6 @@ function updateTheme(btn) {
         //default case
         imagesArray = fruitsArray;
         chosenTheme = "fruits";
-        console.log(imagesArray);
-
     }
     localStorage.setItem("theme", chosenTheme);
     themeModal.hide();
@@ -428,11 +446,10 @@ function showLeaderboardModal() {
     let leastTimePerLevelDiv = document.getElementById("least-time-per-level-section");
     let storedLeaderboard = localStorage.getItem("leaderboard");
     let storedLeaderboardArray = JSON.parse(storedLeaderboard);
-    // let timeArray = storedLeaderboardArray.map( (item) => item.time);
     let noWinsDiv = document.getElementById("no-previous-wins");
 
     if (storedLeaderboardArray) {
-        for (let i = 0; i < storedLeaderboardArray.length; i++) {
+        for (let i = 0; i < (highestActiveLevel-1); i++) {
             noWinsDiv.style.display = "none";
             let levelChildDiv = document.createElement("div");
             let levelID = "level-number-" + i;
@@ -447,7 +464,7 @@ function showLeaderboardModal() {
             levelNumberLabel.textContent = "Level " + Number(i + 1);
 
             let timeLabel = document.getElementById(timeID);
-            timeLabel.textContent = storedLeaderboardArray[i].time;
+            timeLabel.textContent = storedLeaderboardArray[i];
         }
     } else {
         levelNumberDiv.style.display = "none";
@@ -477,13 +494,14 @@ function startTimer() {
         appendMinutes.innerHTML = "0" + minutes;
         seconds = 0;
         appendSeconds.innerHTML = "0" + 0;
-    }
+    
     if (minutes <= 9) {
         appendMinutes.innerHTML = "0" + minutes;
     }
     if (minutes > 9) {
         appendMinutes.innerHTML = minutes;
     }
+}
 }
 
 function stopTimer() {
