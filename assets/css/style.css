@@ -17,7 +17,7 @@ body {
     background-color: #CB2D6F;
     color: #F3F8FF;
     border-color: #F3F8FF;
-    border-width: 4px;
+    border-width: 3px;
     border-style: dashed;
     border-radius: 5px;
     width: 95vw;
@@ -162,7 +162,6 @@ body {
 }
 
 /* Footer */
-
 #footer-bar {
     color: #F3F8FF;
     text-align: center;
@@ -179,6 +178,16 @@ body {
 #footer-bar a {
     color: #F3F8FF;
     text-decoration: none;
+}
+
+/* Guide tour popover styling */
+.driver-popover {
+    background-color: #CB2D6F !important;
+    color: #F3F8FF !important;
+}
+
+.driver-popover-progress-text {
+    color: #d2b7b7 !important;
 }
 
 /* Media query: large or landscape phones (576px and up) */

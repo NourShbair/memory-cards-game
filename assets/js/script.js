@@ -1,4 +1,5 @@
 /* jshint esversion: 11 */
+
 //access the game div
 const gameBoard = document.querySelector("#game");
 
@@ -96,11 +97,15 @@ let chosenTheme = "";
 let storedTheme = localStorage.getItem("theme");
 if (storedTheme) {
     chosenTheme = storedTheme;
-} else {
-    showThemeModal();
-}
+} 
+// else {
+
+//     showThemeModal();
+// }
 //this array to store the least time for each level (10 levels)
 let leaderboardArray = ["", "", "", "", "", "", "", "", "", ""];
+
+
 
 //this function draw the cards on the screen depending on specific number as parameter, and use of css grid system to handle responsivness
 function drawCards(number) {
@@ -274,7 +279,7 @@ function onCardClick(card) {
             cardDiv.classList.remove("unflipped");
             //make delay to show the second card before unflip it 
             function unflipCards() {
-                //Function executed after 1.5 seconds
+                //Function executed after 1 second
                 cardDiv.classList.add("unflipped");
                 cardDiv.classList.remove("flipped");
                 openedCard.classList.add("unflipped");
@@ -297,27 +302,27 @@ function checkLastRound() {
         if (isSoundOn) {
             winningSound.play();
         }
-        
+
         let storedLeaderboard = localStorage.getItem("leaderboard");
         if (storedLeaderboard) {
             leaderboardArray = JSON.parse(storedLeaderboard);
-            let storedCurrentLevelTime = leaderboardArray[currentLevel-1];
+            let storedCurrentLevelTime = leaderboardArray[currentLevel - 1];
 
-            let storedCurrentLevelTimeSplited= storedCurrentLevelTime? storedCurrentLevelTime.split(":") : "";
-            let storedCurrentLevelTimeInSeconds = storedCurrentLevelTimeSplited?(Number(storedCurrentLevelTimeSplited[0])*60) + (Number(storedCurrentLevelTimeSplited[1])) : ""; 
+            let storedCurrentLevelTimeSplited = storedCurrentLevelTime ? storedCurrentLevelTime.split(":") : "";
+            let storedCurrentLevelTimeInSeconds = storedCurrentLevelTimeSplited ? (Number(storedCurrentLevelTimeSplited[0]) * 60) + (Number(storedCurrentLevelTimeSplited[1])) : "";
 
-            let currentLevelTimeInSeconds = (Number(minutes)*60) + Number(seconds); 
+            let currentLevelTimeInSeconds = (Number(minutes) * 60) + Number(seconds);
 
             console.log(storedCurrentLevelTimeInSeconds);
             console.log(currentLevelTimeInSeconds);
-            if((storedCurrentLevelTimeInSeconds=="")|| (currentLevelTimeInSeconds<storedCurrentLevelTimeInSeconds)){
-                leaderboardArray[currentLevel-1]=minutes + ":" + seconds;
-            } 
+            if ((storedCurrentLevelTimeInSeconds == "") || (currentLevelTimeInSeconds < storedCurrentLevelTimeInSeconds)) {
+                leaderboardArray[currentLevel - 1] = minutes + ":" + seconds;
+            }
 
-        } 
+        }
         else {
             // leaderboardArray = [];
-            leaderboardArray[currentLevel-1]=minutes + ":" + seconds;
+            leaderboardArray[currentLevel - 1] = minutes + ":" + seconds;
 
         }
 
@@ -331,7 +336,7 @@ function checkLastRound() {
             //check if it's the last level
             showLeaderboardModal();
         }
-        else{
+        else {
             successModal.show();
         }
     }
@@ -354,7 +359,7 @@ function openNextLevel() {
     let storedHighestActiveLevel = localStorage.getItem("highestActiveLevel");
     if (storedHighestActiveLevel < currentLevel) {
         //update levels timeline and local storage with the new level
-        highestActiveLevel=currentLevel;
+        highestActiveLevel = currentLevel;
         localStorage.setItem("highestActiveLevel", highestActiveLevel);
         let levelBtnID = "level-" + highestActiveLevel + "-button";
         let levelButton = document.getElementById(levelBtnID);
@@ -393,7 +398,7 @@ function openLevel(number) {
 }
 
 function showThemeModal() {
-
+lunchGuideTour
     themeModal.show();
 }
 
@@ -449,7 +454,7 @@ function showLeaderboardModal() {
     let noWinsDiv = document.getElementById("no-previous-wins");
 
     if (storedLeaderboardArray) {
-        for (let i = 0; i < (highestActiveLevel-1); i++) {
+        for (let i = 0; i < (highestActiveLevel - 1); i++) {
             noWinsDiv.style.display = "none";
             let levelChildDiv = document.createElement("div");
             let levelID = "level-number-" + i;
@@ -494,14 +499,14 @@ function startTimer() {
         appendMinutes.innerHTML = "0" + minutes;
         seconds = 0;
         appendSeconds.innerHTML = "0" + 0;
-    
-    if (minutes <= 9) {
-        appendMinutes.innerHTML = "0" + minutes;
+
+        if (minutes <= 9) {
+            appendMinutes.innerHTML = "0" + minutes;
+        }
+        if (minutes > 9) {
+            appendMinutes.innerHTML = minutes;
+        }
     }
-    if (minutes > 9) {
-        appendMinutes.innerHTML = minutes;
-    }
-}
 }
 
 function stopTimer() {
@@ -516,6 +521,44 @@ function resetTimer() {
     appendMinutes.innerHTML = minutes;
     appendSeconds.innerHTML = seconds;
 }
+
 drawCards(numberOfImages);
 drawLevelsTimeline();
 updateTheme();
+
+function lunchGuideTour(){
+//implementation of user guide tour
+const driver = window.driver.js.driver;
+
+const driverObj = driver({
+  showProgress: true,
+  allowClose: false,
+  steps: [
+    { element: '#nour', popover: { title: 'Pick Your Favourite Theme ', description: 'The chosen theme will be applied on the flipped cards.', onNextClick: () => {
+        themeModal.hide();
+        driverObj.moveNext();
+      }, side: "bottom", align: 'center'}},
+    { element: '#card0', popover: { title: 'Click To Flip', description: 'To flip the card you have to click on two cards per turn and try to choose matched cards.', side: "left", align: 'start' }},
+    { element: '#controllers', popover: { title: 'Game Controllers', description: 'In this section you can control the sound (on/off), change the theme, restart the game and check your winning leaderboard.', side: "bottom", align: 'start' }},
+    { element: '#levels-timeline', popover: { title: 'Levels Progress', description: 'You can check your progress through the game levels on this section.', side: "bottom", align: 'start' }},
+    { popover: { title: 'Enjoy!', description: 'Let\'s play and enjoy the game!' } }
+  ],
+  // onDestroyStarted is called when the user tries to exit the tour
+  onDestroyStarted: () => {
+    if (!driverObj.hasNextStep() || confirm("Are you sure you want to exit the tour?")) {
+      driverObj.destroy();
+    }
+  },
+});
+
+driverObj.drive();
+
+}
+
+let isGuideTourLunched = localStorage.getItem("isGuideTourLunched");
+if (!isGuideTourLunched){
+    localStorage.setItem("isGuideTourLunched",true);
+    setTimeout(lunchGuideTour, 500);
+    showThemeModal();
+
+}
