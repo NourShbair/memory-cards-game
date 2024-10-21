@@ -57,7 +57,7 @@
 }
 
 body {
-    background-color: #02203e;
+    background-color: #003871;
 }
 
 #controllers {
@@ -114,12 +114,12 @@ body {
 }
 
 .enabled {
-    background-color: #02836d;
+    background-color: #049f4e;
     cursor: pointer;
 }
 
 .enabled:hover {
-    background-color: #24c4a9;
+    background-color: #17d070;
 
 }
 
@@ -176,7 +176,7 @@ body {
 }
 
 .modal-header {
-    background-color: #02836d;
+    background-color: #049f4e;
     color: #F3F8FF;
     justify-content: center;
 }
@@ -213,11 +213,12 @@ body {
 }
 
 /* Footer */
-footer{
-    position: absolute;
+#footer-container{
+    position: fixed;
     bottom: 0;
-    left:0;
-    right: 0;
+    background-color:#02203e;
+    border-top: 2px solid #F3F8FF;
+    max-width: 100%;
 
 }
 #footer-bar {
