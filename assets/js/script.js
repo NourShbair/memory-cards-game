@@ -31,13 +31,13 @@ let isSecondClick = false;
 let openedCard = null;
 
 //get the leaderboard modal element 
-var leaderboardModal = new bootstrap.Modal(document.getElementById('leaderboard-modal'));
+let leaderboardModal = new bootstrap.Modal(document.getElementById('leaderboard-modal'));
 
 //get the success modal element 
-var successModal = new bootstrap.Modal(document.getElementById('success-modal'));
+let successModal = new bootstrap.Modal(document.getElementById('success-modal'));
 
 //get theme modal element 
-var themeModal = new bootstrap.Modal(document.getElementById('theme-modal'));
+let themeModal = new bootstrap.Modal(document.getElementById('theme-modal'));
 
 //get themes options buttons
 let fruitsBtn = document.getElementById('fruits-btn');
@@ -236,6 +236,18 @@ function shuffle(array) {
 
 //this function to handle the click on the card
 function onCardClick(card) {
+    function unflipCards() {
+        //Function executed after 1 second
+        cardDiv.classList.add("unflipped");
+        cardDiv.classList.remove("flipped");
+        openedCard.classList.add("unflipped");
+        openedCard.classList.remove("flipped");
+        for (let i = 0; i < closedCardsArray.length; i++) {
+            let card = closedCardsArray[i];
+            card.addEventListener('click', flip);
+            card.addEventListener('click', onCardClick);
+        }
+    }
     //start the timer
     if (!isTimerLunched) {
         launchTimer();
@@ -277,19 +289,8 @@ function onCardClick(card) {
             //if both clicked cards are different
             cardDiv.classList.add("flipped");
             cardDiv.classList.remove("unflipped");
-            //make delay to show the second card before unflip it 
-            function unflipCards() {
-                //Function executed after 1 second
-                cardDiv.classList.add("unflipped");
-                cardDiv.classList.remove("flipped");
-                openedCard.classList.add("unflipped");
-                openedCard.classList.remove("flipped");
-                for (let i = 0; i < closedCardsArray.length; i++) {
-                    let card = closedCardsArray[i];
-                    card.addEventListener('click', flip);
-                    card.addEventListener('click', onCardClick);
-                }
-            }
+
+            //make delay for 1s to show the second card before unflip it 
             setTimeout(unflipCards, 1000);
         }
     }
@@ -534,10 +535,6 @@ function startTimer() {
             appendMinutes.innerHTML = minutes;
         }
     }
-}
-
-function stopTimer() {
-    clearInterval(Interval);
 }
 
 function resetTimer() {

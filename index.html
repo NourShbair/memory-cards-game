@@ -31,13 +31,13 @@
 
     <!-- Linking driverjs To Show User Guide Tour-->
     <script src="https://cdn.jsdelivr.net/npm/driver.js@1.0.1/dist/driver.js.iife.js"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/driver.js@1.0.1/dist/driver.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/driver.js@1.0.1/dist/driver.css">
 
 </head>
 
 <body>
     <header>
-        <section id="controllers" class="container text-center">
+        <div id="controllers" class="container text-center">
             <div class="row text-center">
                 <div id="timer" class="col-3 jersey-25-regular">
                     <i class="fa-solid fa-hourglass-half"></i>
@@ -59,15 +59,15 @@
                     </div>
                 </div>
             </div>
-        </section>
-        <section id="levels-timeline">
+        </div>
+        <div id="levels-timeline">
             <!-- this div created totally using script.js file -->
-        </section>
+        </div>
     </header>
     <main>
-        <section id="game">
+        <div id="game">
             <!-- this div created totally using script.js file -->
-        </section>
+        </div>
     </main>
 
     <footer>
@@ -94,11 +94,11 @@
 
     <!-- Bootstrap Modals -->
     <!-- Success modal(show when successfully finish the level) -->
-    <div class="modal fade" id="success-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="success-modal" tabindex="-1" aria-labelledby="success-modal-label" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h2 class="modal-title fs-4" id="exampleModalLabel">🎉 Congratulations! 🎉</h2>
+                    <h2 class="modal-title fs-4" id="success-modal-label">🎉 Congratulations! 🎉</h2>
                 </div>
                 <div class="modal-body">
                     You have successfully passed this level!
@@ -112,11 +112,11 @@
     </div>
 
     <!-- Theme modal(let the user choose the theme of cards) -->
-    <div class="modal fade" id="theme-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="theme-modal" tabindex="-1" aria-labelledby="theme-modal-label" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content" id="theme-modal-content">
                 <div class="modal-header">
-                    <h2 class="modal-title fs-4" id="exampleModalLabel">Let's Choose Cards Theme! 🎨</h2>
+                    <h2 class="modal-title fs-4" id="theme-modal-label">Let's Choose Cards Theme! 🎨</h2>
                 </div>
                 <div class="modal-body">
                     <button id="fruits-btn" class="btn btn-secondary theme-modal-btn">🍉</button>
@@ -129,11 +129,11 @@
     </div>
 
     <!-- Leaderboard modal(show the least time achieved for each level) -->
-    <div class="modal fade" id="leaderboard-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="leaderboard-modal" tabindex="-1" aria-labelledby="leaderboard-modal-label" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h2 class="modal-title fs-4" id="exampleModalLabel">🏆 Leaderboard! 🏆</h2>
+                    <h2 class="modal-title fs-4" id="leaderboard-modal-label">🏆 Leaderboard! 🏆</h2>
                 </div>
                 <div class="modal-body">
                     <div class="container-fluid">
