@@ -607,6 +607,7 @@ function lunchGuideTour() {
                     description: 'In this section you can control the sound (on/off), change the theme, restart the game and check your winning leaderboard.', 
                     onNextClick: () => {
                         localStorage.setItem("isGuideTourLunched", true);
+                        driverObj.moveNext();
                     },
                     side: "bottom", 
                     align: 'start' } },

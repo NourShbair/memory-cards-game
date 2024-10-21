@@ -57,7 +57,7 @@
 }
 
 body {
-    background-color: #003871;
+    background-color: #390257;
 }
 
 #controllers {
@@ -65,7 +65,7 @@ body {
     margin-top: 5vh;
     margin-bottom: 2vh;
     align-content: center;
-    background-color: #CB2D6F;
+    background-color: #cf2b9a;
     color: #F3F8FF;
     border-color: #F3F8FF;
     border-width: 3px;
@@ -132,6 +132,7 @@ body {
 
 #game {
     margin-top: 0px;
+    margin-bottom: 100px;
 }
 
 /* cards properties */
@@ -185,9 +186,7 @@ body {
     color: #6D108B;
     text-align: center;
     background-color: #F9F8ED;
-
 }
-
 
 .modal-footer {
     justify-content: center;
@@ -196,8 +195,8 @@ body {
 }
 
 .btn-primary {
-    background-color: #CB2D6F;
-    --bs-btn-hover-bg: #e4689c;
+    background-color: #cf2b9a;
+    --bs-btn-hover-bg: #fc66cd;
     color: #F3F8FF;
 }
 
@@ -216,15 +215,14 @@ body {
 #footer-container{
     position: fixed;
     bottom: 0;
-    background-color:#02203e;
-    border-top: 2px solid #F3F8FF;
+    background-color:#F3F8FF;
     max-width: 100%;
 
 }
 #footer-bar {
-    color: #F3F8FF;
+    color: #390257;
     text-align: center;
-    padding: 20px 0;
+    padding: 10px 0;
     display: flex;
     justify-content: space-evenly;
     list-style-type: none;
@@ -235,13 +233,13 @@ body {
 }
 
 #footer-bar a {
-    color: #F3F8FF;
+    color: #390257;
     text-decoration: none;
 }
 
 /* Guide tour popover styling */
 .driver-popover {
-    background-color: #CB2D6F !important;
+    background-color: #cf2b9a !important;
     color: #F3F8FF !important;
 }
 
@@ -264,7 +262,7 @@ body {
 .error-message{
     font-size: 2rem;
     margin-bottom: 1rem;
-    color: #CB2D6F;
+    color: #cf2b9a;
 }
 
 .error-description{
@@ -292,7 +290,7 @@ body {
 }
 
 .redirect-links a:hover {
-    color: #f8e2a7;
+    color: #ebee31;
 }
 
 /* Media query: large or landscape phones (576px and up) */
@@ -303,7 +301,6 @@ body {
     #controllers {
         height: 10vh;
         margin-top: 7vh;
-        /* margin-bottom: 2vh; */
     }
 
     #timer {
@@ -340,7 +337,6 @@ body {
     #controllers {
         height: 10vh;
         margin-top: 6vh;
-        /* margin-bottom: 2vh; */
     }
 
     #timer {
@@ -375,7 +371,6 @@ body {
     #controllers {
         height: 10vh;
         margin-top: 5vh;
-        /* margin-bottom: 2vh; */
     }
 
     #timer {
