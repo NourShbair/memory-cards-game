@@ -482,6 +482,7 @@ function showLeaderboardModal() {
         let noWinsDiv = document.getElementById("no-previous-wins");
         if (storedLeaderboardArray) {
             //if there is at least one level completed successfully
+            console.log(highestActiveLevel);
             for (let i = 0; i < (highestActiveLevel - 1); i++) {
                 noWinsDiv.style.display = "none";
                 let levelChildDiv = document.createElement("div");

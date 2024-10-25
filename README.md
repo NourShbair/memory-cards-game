@@ -112,7 +112,7 @@ I used [coolors.co](https://coolors.co/e84610-009fe3-4a4a4f-445261-d63649-e6ecf0
 ![screenshot](documentation/features/feature-error.png)
 
 ### Future Features
--**Daily Challenges and Rewards**
+- **Daily Challenges and Rewards**
     - Add daily or weekly challenges with varying levels of difficulty. Completing challenges could unlock rewards like special card themes or badges, giving users additional incentives to play regularly.
 - **Social Sharing Features**
     - Enable users to share their leaderboard scores or achievements on social media platforms to engage their friends and create a more social experience.
@@ -128,7 +128,6 @@ I used [coolors.co](https://coolors.co/e84610-009fe3-4a4a4f-445261-d63649-e6ecf0
 - [![CSS](https://img.shields.io/badge/CSS-grey?logo=css3&logoColor=1572B6)](https://en.wikipedia.org/wiki/CSS) used for the main site design and layout.
 - [![JavaScript](https://img.shields.io/badge/JavaScript-grey?logo=javascript&logoColor=F7DF1E)](https://www.javascript.com) used for user interaction on the site.
 - [![GitHub Pages](https://img.shields.io/badge/GitHub_Pages-grey?logo=githubpages&logoColor=222222)](https://pages.github.com) used for hosting the deployed front-end site.
-- ⚠️⚠️ CSS FRAMEWORKS: CHOOSE ONLY ONE (if applicable) <-- delete me ⚠️⚠️
 - [![Bootstrap](https://img.shields.io/badge/Bootstrap-grey?logo=bootstrap&logoColor=7952B3)](https://getbootstrap.com) used as the front-end CSS framework for modern responsiveness and pre-built components.
 - [![Font Awesome](https://img.shields.io/badge/Font_Awesome-grey?logo=fontawesome&logoColor=528DD7)](https://fontawesome.com) used for the icons.
 - [![ChatGPT](https://img.shields.io/badge/ChatGPT-grey?logo=chromatic&logoColor=75A99C)](https://chat.openai.com) used to help debug, troubleshoot, and explain things.
@@ -157,6 +156,7 @@ You can clone the repository by following these steps:
 6. In your IDE Terminal, type the following command to clone my repository:
 	- `git clone https://github.com/NourShbair/memory-cards-game.git`
 7. Press Enter to create your local clone.
+
 Alternatively, if using Gitpod, you can click below to create your own workspace using this repository.
 [![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/NourShbair/memory-cards-game)
 
