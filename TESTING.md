@@ -45,11 +45,11 @@ I've tested my deployed project on multiple devices to check for responsiveness 
 | Device | Home | Error 404 | Notes |
 | --- | --- | --- | --- |
 | Mobile (DevTools) | ![screenshot](documentation/responsiveness/iphone14promax-index.png) | ![screenshot](documentation/responsiveness/iphone14promax-404.png) | Works as expected |
-| iPad (DevTools) | ![screenshot](documentation/responsiveness/ipad-index.png.png) | ![screenshot](documentation/responsiveness/ipad-404.png.png) | Works as expected |
-| Desktop | ![screenshot](documentation/responsiveness/desktop-index.png.png) | ![screenshot](documentation/responsiveness/desktop-404.png.png) | Works as expected |
-| XL Monitor | ![screenshot](documentation/responsiveness/xl-index.png.png) | ![screenshot](documentation/responsiveness/xl-404.png.png) | Scaling starts to have minor issues |
-| 4K Monitor | ![screenshot](documentation/responsiveness/4k-index.png.png) | ![screenshot](documentation/responsiveness/4k-404.png.png) | Noticeable scaling issues |
-| Google Pixel 7 Pro | ![screenshot](documentation/responsiveness/pixel7-index.png.png) | ![screenshot](documentation/responsiveness/pixel7-404.png) | Scaling starts to have minor issues |
+| iPad (DevTools) | ![screenshot](documentation/responsiveness/ipad-index.png) | ![screenshot](documentation/responsiveness/ipad-404.png) | Works as expected |
+| Desktop | ![screenshot](documentation/responsiveness/desktop-index.png) | ![screenshot](documentation/responsiveness/desktop-404.png) | Works as expected |
+| XL Monitor | ![screenshot](documentation/responsiveness/xl-index.png) | ![screenshot](documentation/responsiveness/xl-404.png) | Scaling starts to have minor issues |
+| 4K Monitor | ![screenshot](documentation/responsiveness/4k-index.png) | ![screenshot](documentation/responsiveness/4k-404.png) | Noticeable scaling issues |
+| Google Pixel 7 Pro | ![screenshot](documentation/responsiveness/pixel7-index.png) | ![screenshot](documentation/responsiveness/pixel7-404.png) | Scaling starts to have minor issues |
 
 
 ## Lighthouse Audit
@@ -62,19 +62,28 @@ I've tested my deployed project using the Lighthouse Audit tool to check for any
 
 
 ## Bugs
-- JS Uncaught ReferenceError: `foobar` is undefined/not defined
+- The second card in the round unflipped immediatly if they are not matched.
 
-    ![screenshot](documentation/bugs/bug01.png)
+    ![screenshot](documentation/bugs/bug-1-solved.png)
 
-    - To fix this, I _____________________.
+    - To fix this, I made 1 second delay before unflip the cards.
+
+- The leaderboard array in Local Storage store the time for each level even if the user achieved less time success. 
+
+    ![screenshot](documentation/bugs/bug-2-solved-1.png)
+
+    - To fix this, after every success for any level, I compared the stored value for the time with current value and store the least one in the Local Storage.
+
+    ![screenshot](documentation/bugs/bug-2-solved-2.png)
+
 
 
 ## Unfixed Bugs
-- When validating HTML with a semantic `section` element, the validator warns about lacking a header `h2-h6`. This is acceptable.
+- Ghost Exception! I couldn't re-generate the senario.
 
-    ![screenshot](documentation/bugs/unfixed-bug03.png)
+    ![screenshot](documentation/bugs/bug-1-unsolved.png)
 
-    - Attempted fix: this is a known warning and acceptable, and my section doesn't require a header since it's dynamically added via JS.
+    - Attempted fix: when I cleared the local storage and refresh the page, it works fine. And to solve this I need to investigate the case and its related code.
 
 
 > [!NOTE]  
