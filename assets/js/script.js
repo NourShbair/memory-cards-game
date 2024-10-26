@@ -484,6 +484,7 @@ function showLeaderboardModal() {
             levelNumberDiv.style = "";
             leastTimePerLevelDiv.style = "";
             let length;
+            //check if it is the last level of the game, highestActiveLevel will stay 10 and not incremented
             if (highestActiveLevel == 10){
                 length = 10;
             }else{
