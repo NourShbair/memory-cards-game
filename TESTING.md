@@ -47,9 +47,9 @@ I've tested my deployed project on multiple devices to check for responsiveness 
 | Mobile (DevTools) | ![screenshot](documentation/responsiveness/iphone14promax-index.png) | ![screenshot](documentation/responsiveness/iphone14promax-404.png) | Works as expected |
 | iPad (DevTools) | ![screenshot](documentation/responsiveness/ipad-index.png) | ![screenshot](documentation/responsiveness/ipad-404.png) | Works as expected |
 | Desktop | ![screenshot](documentation/responsiveness/desktop-index.png) | ![screenshot](documentation/responsiveness/desktop-404.png) | Works as expected |
-| XL Monitor | ![screenshot](documentation/responsiveness/xl-index.png) | ![screenshot](documentation/responsiveness/xl-404.png) | Scaling starts to have minor issues |
+| XL Monitor | ![screenshot](documentation/responsiveness/xl-index.png) | ![screenshot](documentation/responsiveness/xl-404.png) | Works as expected |
 | 4K Monitor | ![screenshot](documentation/responsiveness/4k-index.png) | ![screenshot](documentation/responsiveness/4k-404.png) | Noticeable scaling issues |
-| Google Pixel 7 Pro | ![screenshot](documentation/responsiveness/pixel7-index.png) | ![screenshot](documentation/responsiveness/pixel7-404.png) | Scaling starts to have minor issues |
+| Google Pixel 7 Pro | ![screenshot](documentation/responsiveness/pixel7-index.png) | ![screenshot](documentation/responsiveness/pixel7-404.png) | Works as expected |
 
 
 ## Lighthouse Audit
@@ -59,6 +59,24 @@ I've tested my deployed project using the Lighthouse Audit tool to check for any
 | --- | --- | --- | --- |
 | Home | ![screenshot](documentation/lighthouse/lighthouse-desktop-index.png) | ![screenshot](documentation/lighthouse/lighthouse-mobile-index.png) | Some minor warnings |
 | Error 404 | ![screenshot](documentation/lighthouse/lighthouse-desktop-404.png) | ![screenshot](documentation/lighthouse/lighthouse-mobile-404.png) | Some minor warnings |
+
+
+## Defensive Programming
+Defensive programming was manually tested with the below user acceptance testing:
+
+| Page | Expectation | Test | Result | Fix | Screenshot |
+| --- | --- | --- | --- | --- | --- |
+| Home | In guide tour, if the user click next, it should bring him to the next step | I tested the feature by clicking on 'Next' button |The feature behaved as expected | Test concluded and passed | ![screenshot](documentation/features/feature-1.png) 
+| Home | In guide tour, if the user click previous, it should bring him to the previous step | I tested the feature by clicking on 'Previous' button on the second step in the tour | The feature has bug, because after the first step in the tour, I hide Theme Modal, and when the user get back to the previous step with hidden modal, it highlights nothing | To fix this issue I add the code shown in the screenshot to let the theme modal be shown again | ![screenshot](documentation/features/feature-2.png) ![screenshot](documentation/features/feature-2-fix.png) 
+| Home | After lunching the guide tour to the user, it's annoying to appear it again every time the user open the website | Tested the feature by refresh/reopen the website | It shown again at each refresh | I made boolean flag to detect if the tour shown before and store the value in Local Storage to insure that it's value does not change while refresh/reopen the website | ![screenshot](documentation/features/feature-3-fix.png) 
+| Home | In controllers section, the volume must be off by default to prevent annoying the user | I tested the feature by clicking cards |The feature behaved as expected | Test concluded and passed | ![screenshot](documentation/features/feature-4.png) 
+| Home | In theme modal. if the user choose any theme, it should be applied on cards and saved in Local Storage to apply it anytime the user refresh/reopen the website without the need to appear the modal again | I tested the feature by choosing thene and refresh the page |The feature behaved as expected | Test concluded and passed | ![screenshot](documentation/features/feature-5.png) ![screenshot](documentation/features/feature-5-fix.png)
+| Home | If the user did not choose any theme, I choose fruits as the default theme | I tested the feature by closing Theme Modal without choosing |The feature behaved as expected | Test concluded and passed | ![screenshot](documentation/features/feature-6.png)
+| Home | If the user click on Trophy button, it should show Leaderboard Modal and represent the solved levels with the least time achieved | I tested the feature by clicking on Trophy button before start playing and after levels success |The feature behaved as expected | Test concluded and passed | ![screenshot](documentation/features/feature-7-a.png) ![screenshot](documentation/features/feature-7-b.png) ![screenshot](documentation/features/feature-7-c.png)
+| Home | If the user click on Restart button, it should restart the game and reset the timer | I tested the feature by clicking on Restart button while playing |The feature behaved as expected | Test concluded and passed | ![screenshot](documentation/features/feature-8.png)
+| Home | If the user click on Sound button, it should toogle the state of the sound | I tested the feature by clicking on Sound button (turn on), then click on cards to hear flipping sound, as well hearing the winning sound after successfully finish the level|The feature behaved as expected | Test concluded and passed | ![screenshot](documentation/features/feature-9.png)
+| Home | If the user click on the card, check if it the first or the second click (per round), then check if they are same or different | Tested the feature by clicking on cards | The feature behaved as expected, but if the two flipped cards are different, they unflipped immediately without letting the user able to see the content of the second card | I made delay with 1 second before unflip the cards | ![screenshot](documentation/features/feature-10-fix.png) |
+
 
 
 ## Bugs

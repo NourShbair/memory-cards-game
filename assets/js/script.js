@@ -426,7 +426,6 @@ function onSoundClick() {
         soundBtnOn.style.display = "block";
     }
     isSoundOn = !isSoundOn;
-
 }
 
 //choose cards theme by user
