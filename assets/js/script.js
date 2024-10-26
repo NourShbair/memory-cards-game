@@ -316,11 +316,11 @@ function checkLastRound() {
             let storedCurrentLevelTimeInSeconds = storedCurrentLevelTimeSplited ? (Number(storedCurrentLevelTimeSplited[0]) * 60) + (Number(storedCurrentLevelTimeSplited[1])) : "";
             let currentLevelTimeInSeconds = (Number(minutes) * 60) + Number(seconds);
             if ((storedCurrentLevelTimeInSeconds == "") || (currentLevelTimeInSeconds < storedCurrentLevelTimeInSeconds)) {
-                leaderboardArray[currentLevel - 1] = minutes + ":" + seconds;
+                leaderboardArray[currentLevel - 1] =  appendMinutes.innerHTML + ":" + appendSeconds.innerHTML;
             }
         }
         else {
-            leaderboardArray[currentLevel - 1] = minutes + ":" + seconds;
+            leaderboardArray[currentLevel - 1] = appendMinutes.innerHTML + ":" + appendSeconds.innerHTML;
         }
         //update the leaderboard with the new values
         let stringifiedLeaderboardArray = JSON.stringify(leaderboardArray);
